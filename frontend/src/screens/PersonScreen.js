@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
-import persons from '../persons'
+import axios from 'axios'
 
 const PersonScreen = ({ match }) => {
-  const person = persons.find((p) => p._id === match.params.id)
+  const [person, setPerson] = useState({})
+
+  useEffect(() => {
+    const fetchPerson = async () => {
+      const { data } = await axios.get(`/api/persons/${match.params.id}`)
+
+      setPerson(data)
+    }
+
+    fetchPerson()
+  }, [match])
 
   return (
     <>

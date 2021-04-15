@@ -8,13 +8,13 @@ const Header = () => {
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>ROPES</Navbar.Brand>
+            <Navbar.Brand>R.O.P.E.S.</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
               <LinkContainer to='/mypage'>
-                <Nav.Link Link='/mypage'>
+                <Nav.Link to='/mypage'>
                   <i className='fas fa-scroll'></i> My Page
                 </Nav.Link>
               </LinkContainer>

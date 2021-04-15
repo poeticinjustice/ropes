@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import Person from '../components/Person'
-import persons from '../persons'
+import axios from 'axios'
 
 const HomeScreen = () => {
+  const [persons, setPersons] = useState([])
+
+  useEffect(() => {
+    const fetchPersons = async () => {
+      const { data } = await axios.get('/api/persons')
+
+      setPersons(data)
+    }
+
+    fetchPersons()
+  }, [])
+
   return (
     <>
       <h1>Latest ROPES</h1>
