@@ -13,19 +13,17 @@ const personSchema = mongoose.Schema(
     },
     image: {
       type: String,
-      required: false,
     },
     party: {
       type: String,
       required: true,
     },
-    dateOfBirth: {
-      type: Number,
-      required: false,
+    state: {
+      type: String,
+      required: true,
     },
     description: {
       type: String,
-      required: false,
     },
     researchPost: [
       {
@@ -45,6 +43,6 @@ const personSchema = mongoose.Schema(
   }
 )
 
-const Person = mongoose.Model('Person', personSchema)
+const Person = mongoose.model('Person', personSchema)
 
 export default Person

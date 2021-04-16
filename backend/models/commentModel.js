@@ -17,7 +17,6 @@ const commentSchema = mongoose.Schema(
     },
     agree: {
       type: Boolean,
-      required: false,
     },
     agreeCount: {
       type: Number,
@@ -30,6 +29,6 @@ const commentSchema = mongoose.Schema(
   }
 )
 
-const Comment = mongoose.Model('Comment', commentSchema)
+const Comment = mongoose.model('Comment', commentSchema)
 
 export default Comment

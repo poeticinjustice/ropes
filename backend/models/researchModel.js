@@ -13,7 +13,7 @@ const researchSchema = mongoose.Schema(
     },
     description: {
       type: String,
-      required: false,
+      required: true,
     },
     comments: [
       {
@@ -33,6 +33,6 @@ const researchSchema = mongoose.Schema(
   }
 )
 
-const Research = mongoose.Model('Research', researchSchema)
+const Research = mongoose.model('Research', researchSchema)
 
 export default Research
