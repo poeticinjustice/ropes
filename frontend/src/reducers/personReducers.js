@@ -9,7 +9,7 @@ export const personListReducer = (state = { persons: [] }, action) => {
     case PERSON_LIST_REQUEST:
       return { loading: true, persons: [] }
     case PERSON_LIST_SUCCESS:
-      return { loading: false, products: action.payload }
+      return { loading: false, persons: action.payload }
     case PERSON_LIST_FAIL:
       return { loading: false, error: action.payload }
     default:
