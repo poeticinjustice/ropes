@@ -16,12 +16,13 @@ const Person = ({ person }) => {
         </Link>
 
         <Card.Text as='div'>
+          <div>{person.role}</div>
           <div className='my-3'>
             {person.party} from {person.state}
           </div>
         </Card.Text>
         <Card.Text as='h3'>
-          <div className='my-3'>Ropes: {person.posts}</div>
+          <div className='my-3'>Latest Ropes: {person.posts}</div>
         </Card.Text>
       </Card.Body>
     </Card>

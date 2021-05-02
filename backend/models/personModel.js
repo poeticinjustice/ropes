@@ -14,6 +14,9 @@ const personSchema = mongoose.Schema(
     image: {
       type: String,
     },
+    role: {
+      type: String,
+    },
     party: {
       type: String,
       required: true,
