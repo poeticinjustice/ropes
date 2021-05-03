@@ -28,7 +28,7 @@ const personSchema = mongoose.Schema(
     description: {
       type: String,
     },
-    researchPost: [
+    researchPosts: [
       {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
