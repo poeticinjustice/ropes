@@ -5,13 +5,21 @@ import {
   personListReducer,
   personDetailsReducer,
 } from './reducers/personReducers'
+import { userLoginReducer } from './reducers/userReducers'
 
 const reducer = combineReducers({
   personList: personListReducer,
   personDetails: personDetailsReducer,
+  userLogin: userLoginReducer,
 })
 
-const initialState = {}
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null
+
+const initialState = {
+  userLogin: { userInfo: userInfoFromStorage },
+}
 
 const middleware = [thunk]
 
