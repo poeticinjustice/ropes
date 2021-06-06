@@ -64,9 +64,9 @@ const PersonListScreen = ({ history, match }) => {
             <tr>
               <th>ID</th>
               <th>NAME</th>
-              <th>PRICE</th>
-              <th>CATEGORY</th>
-              <th>BRAND</th>
+              <th>ROLE</th>
+              <th>PARTY</th>
+              <th>STATE</th>
               <th></th>
             </tr>
           </thead>
