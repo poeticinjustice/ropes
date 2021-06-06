@@ -62,8 +62,7 @@ const createPerson = asyncHandler(async (req, res) => {
 // @route   PUT /api/persons/:id
 // @access  Private/Admin
 const updatePerson = asyncHandler(async (req, res) => {
-  const { name, role, description, image, state, party, countInStock } =
-    req.body
+  const { name, role, description, image, state, party } = req.body
 
   const person = await Person.findById(req.params.id)
 
@@ -74,7 +73,6 @@ const updatePerson = asyncHandler(async (req, res) => {
     person.image = image
     person.state = state
     person.party = party
-    person.countInStock = countInStock
 
     const updatedPerson = await person.save()
     res.json(updatedPerson)
