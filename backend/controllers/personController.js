@@ -13,7 +13,7 @@ const getPersons = asyncHandler(async (req, res) => {
 // @desc    Fetch single person
 // @route   GET /api/persons/:id
 // @access  Public
-const getPersonByid = asyncHandler(async (req, res) => {
+const getPersonById = asyncHandler(async (req, res) => {
   const person = await Person.findById(req.params.id)
 
   if (person) {
@@ -24,4 +24,19 @@ const getPersonByid = asyncHandler(async (req, res) => {
   }
 })
 
-export { getPersons, getPersonByid }
+// @desc    Delete a person
+// @route   DELETE /api/persons/:id
+// @access  Private/Admin
+const deletePerson = asyncHandler(async (req, res) => {
+  const person = await Person.findById(req.params.id)
+
+  if (person) {
+    await person.remove()
+    res.json({ message: 'Person removed' })
+  } else {
+    res.status(404)
+    throw new Error('Person not found')
+  }
+})
+
+export { getPersons, getPersonById, deletePerson }

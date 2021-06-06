@@ -6,6 +6,9 @@ import {
   PERSON_DETAILS_REQUEST,
   PERSON_DETAILS_SUCCESS,
   PERSON_DETAILS_FAIL,
+  PERSON_DELETE_SUCCESS,
+  PERSON_DELETE_REQUEST,
+  PERSON_DELETE_FAIL,
 } from '../constants/personConstants'
 
 export const listPersons = () => async (dispatch) => {
@@ -42,6 +45,38 @@ export const listPersonDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PERSON_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const deletePerson = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PERSON_DELETE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.delete(`/api/persons/${id}`, config)
+
+    dispatch({
+      type: PERSON_DELETE_SUCCESS,
+    })
+  } catch (error) {
+    dispatch({
+      type: PERSON_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

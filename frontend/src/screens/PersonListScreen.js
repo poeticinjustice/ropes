@@ -4,13 +4,20 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listPersons } from '../actions/personActions'
+import { listPersons, deletePerson } from '../actions/personActions'
 
 const PersonListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
 
   const personList = useSelector((state) => state.personList)
   const { loading, error, persons } = personList
+
+  const personDelete = useSelector((state) => state.personDelete)
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = personDelete
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -21,11 +28,11 @@ const PersonListScreen = ({ history, match }) => {
     } else {
       history.push('/login')
     }
-  }, [dispatch, history, userInfo])
+  }, [dispatch, history, userInfo, successDelete])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
-      // DELETE PERSONS
+      dispatch(deletePerson(id))
     }
   }
 
@@ -45,6 +52,8 @@ const PersonListScreen = ({ history, match }) => {
           </Button>
         </Col>
       </Row>
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
