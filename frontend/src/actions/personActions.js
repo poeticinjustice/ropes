@@ -9,6 +9,9 @@ import {
   PERSON_DELETE_SUCCESS,
   PERSON_DELETE_REQUEST,
   PERSON_DELETE_FAIL,
+  PERSON_CREATE_FAIL,
+  PERSON_CREATE_SUCCESS,
+  PERSON_CREATE_REQUEST,
 } from '../constants/personConstants'
 
 export const listPersons = () => async (dispatch) => {
@@ -77,6 +80,39 @@ export const deletePerson = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PERSON_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const createPerson = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PERSON_CREATE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.post(`/api/persons`, {}, config)
+
+    dispatch({
+      type: PERSON_CREATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PERSON_CREATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

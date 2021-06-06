@@ -8,6 +8,10 @@ import {
   PERSON_DELETE_SUCCESS,
   PERSON_DELETE_REQUEST,
   PERSON_DELETE_FAIL,
+  PERSON_CREATE_RESET,
+  PERSON_CREATE_FAIL,
+  PERSON_CREATE_SUCCESS,
+  PERSON_CREATE_REQUEST,
 } from '../constants/personConstants'
 
 export const personListReducer = (state = { persons: [] }, action) => {
@@ -47,6 +51,21 @@ export const personDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true }
     case PERSON_DELETE_FAIL:
       return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const personCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PERSON_CREATE_REQUEST:
+      return { loading: true }
+    case PERSON_CREATE_SUCCESS:
+      return { loading: false, success: true, person: action.payload }
+    case PERSON_CREATE_FAIL:
+      return { loading: false, error: action.payload }
+    case PERSON_CREATE_RESET:
+      return {}
     default:
       return state
   }

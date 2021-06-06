@@ -4,7 +4,12 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listPersons, deletePerson } from '../actions/personActions'
+import {
+  listPersons,
+  deletePerson,
+  createPerson,
+} from '../actions/personActions'
+import { PERSON_CREATE_RESET } from '../constants/personConstants'
 
 const PersonListScreen = ({ history, match }) => {
   const dispatch = useDispatch()
@@ -19,16 +24,30 @@ const PersonListScreen = ({ history, match }) => {
     success: successDelete,
   } = personDelete
 
+  const personCreate = useSelector((state) => state.personCreate)
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    person: createdPerson,
+  } = personCreate
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listPersons())
-    } else {
+    dispatch({ type: PERSON_CREATE_RESET })
+
+    if (!userInfo.isAdmin) {
       history.push('/login')
     }
-  }, [dispatch, history, userInfo, successDelete])
+
+    if (successCreate) {
+      history.push(`/admin/person/${createdPerson._id}/edit`)
+    } else {
+      dispatch(listPersons())
+    }
+  }, [dispatch, history, userInfo, successDelete, successCreate, createdPerson])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
@@ -36,8 +55,8 @@ const PersonListScreen = ({ history, match }) => {
     }
   }
 
-  const createPersonHandler = (person) => {
-    //   CREATE PERSON
+  const createPersonHandler = () => {
+    dispatch(createPerson())
   }
 
   return (
@@ -54,6 +73,8 @@ const PersonListScreen = ({ history, match }) => {
       </Row>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (
