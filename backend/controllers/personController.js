@@ -44,14 +44,14 @@ const deletePerson = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const createPerson = asyncHandler(async (req, res) => {
   const person = new Person({
-    name: 'Sample name',
-    role: 'example role',
+    name: 'Person name',
+    role: 'Person role',
     user: req.user._id,
     image: '/images/sample.jpg',
-    state: 'Sample state',
-    party: 'Sample party',
+    state: 'Person state',
+    party: 'Person party',
     numReviews: 0,
-    description: 'Sample description',
+    description: 'Person description',
   })
 
   const createdPerson = await person.save()
