@@ -12,6 +12,9 @@ import {
   PERSON_CREATE_FAIL,
   PERSON_CREATE_SUCCESS,
   PERSON_CREATE_REQUEST,
+  PERSON_UPDATE_REQUEST,
+  PERSON_UPDATE_SUCCESS,
+  PERSON_UPDATE_FAIL,
 } from '../constants/personConstants'
 
 export const listPersons = () => async (dispatch) => {
@@ -113,6 +116,44 @@ export const createPerson = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PERSON_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const updatePerson = (person) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PERSON_UPDATE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(
+      `/api/persons/${person._id}`,
+      person,
+      config
+    )
+
+    dispatch({
+      type: PERSON_UPDATE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PERSON_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

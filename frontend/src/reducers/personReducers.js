@@ -12,6 +12,10 @@ import {
   PERSON_CREATE_FAIL,
   PERSON_CREATE_SUCCESS,
   PERSON_CREATE_REQUEST,
+  PERSON_UPDATE_REQUEST,
+  PERSON_UPDATE_SUCCESS,
+  PERSON_UPDATE_FAIL,
+  PERSON_UPDATE_RESET,
 } from '../constants/personConstants'
 
 export const personListReducer = (state = { persons: [] }, action) => {
@@ -66,6 +70,21 @@ export const personCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case PERSON_CREATE_RESET:
       return {}
+    default:
+      return state
+  }
+}
+
+export const personUpdateReducer = (state = { person: {} }, action) => {
+  switch (action.type) {
+    case PERSON_UPDATE_REQUEST:
+      return { loading: true }
+    case PERSON_UPDATE_SUCCESS:
+      return { loading: false, success: true, person: action.payload }
+    case PERSON_UPDATE_FAIL:
+      return { loading: false, error: action.payload }
+    case PERSON_UPDATE_RESET:
+      return { person: {} }
     default:
       return state
   }

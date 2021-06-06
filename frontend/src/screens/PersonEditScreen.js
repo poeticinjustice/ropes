@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { listPersonDetails } from '../actions/personActions'
+import { listPersonDetails, updatePerson } from '../actions/personActions'
+import { PERSON_UPDATE_RESET } from '../constants/personConstants'
 
 const PersonEditScreen = ({ match, history }) => {
   const personId = match.params.id
@@ -22,22 +23,44 @@ const PersonEditScreen = ({ match, history }) => {
   const personDetails = useSelector((state) => state.personDetails)
   const { loading, error, person } = personDetails
 
+  const personUpdate = useSelector((state) => state.personUpdate)
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = personUpdate
+
   useEffect(() => {
-    if (!person.name || person._id !== personId) {
-      dispatch(listPersonDetails(personId))
+    if (successUpdate) {
+      dispatch({ type: PERSON_UPDATE_RESET })
+      history.push('/admin/personlist')
     } else {
-      setName(person.name)
-      setRole(person.role)
-      setImage(person.image)
-      setState(person.state)
-      setParty(person.party)
-      setDescription(person.description)
+      if (!person.name || person._id !== personId) {
+        dispatch(listPersonDetails(personId))
+      } else {
+        setName(person.name)
+        setRole(person.role)
+        setImage(person.image)
+        setState(person.state)
+        setParty(person.party)
+        setDescription(person.description)
+      }
     }
-  }, [dispatch, history, personId, person])
+  }, [dispatch, history, personId, person, successUpdate])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    // UPDATE Person
+    dispatch(
+      updatePerson({
+        _id: personId,
+        name,
+        role,
+        image,
+        state,
+        party,
+        description,
+      })
+    )
   }
 
   return (
@@ -47,6 +70,8 @@ const PersonEditScreen = ({ match, history }) => {
       </Link>
       <FormContainer>
         <h1>Edit Person</h1>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
