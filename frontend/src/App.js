@@ -11,6 +11,7 @@ import ProfileScreen from './screens/ProfileScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import PersonListScreen from './screens/PersonListScreen'
+import PersonEditScreen from './screens/PersonEditScreen'
 
 const App = () => {
   return (
@@ -23,9 +24,10 @@ const App = () => {
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/person/:id' component={PersonScreen} />
           <Route path='/admin/userList' component={UserListScreen} />
-          <Route path='/admin/user/:id/edit' component={UserEditScreen} />
-          <Route path='/' component={HomeScreen} exact />
+          <Route path='/admin/user/:id/edit' component={UserEditScreen} />{' '}
           <Route path='/admin/personlist' component={PersonListScreen} />
+          <Route path='/admin/person/:id/edit' component={PersonEditScreen} />
+          <Route path='/' component={HomeScreen} exact />
         </Container>
       </main>
       <Footer />
