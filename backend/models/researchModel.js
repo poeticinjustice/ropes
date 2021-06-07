@@ -7,7 +7,7 @@ const researchSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
-    name: {
+    title: {
       type: String,
       required: true,
     },
