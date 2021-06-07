@@ -50,7 +50,7 @@ const createPerson = asyncHandler(async (req, res) => {
     image: '/images/sample.jpg',
     state: 'Person state',
     party: 'Person party',
-    numReviews: 0,
+    numResearchPosts: 0,
     description: 'Person description',
   })
 
@@ -82,4 +82,39 @@ const updatePerson = asyncHandler(async (req, res) => {
   }
 })
 
-export { getPersons, getPersonById, deletePerson, createPerson, updatePerson }
+// @desc    Create new research post
+// @route   POST /api/persons/:id/researchPosts
+// @access  Private
+const createPersonResearchPost = asyncHandler(async (req, res) => {
+  const { title, description } = req.body
+
+  const person = await Person.findById(req.params.id)
+
+  if (person) {
+    const researchPost = {
+      name: req.user.name,
+      title,
+      description,
+      user: req.user._id,
+    }
+
+    person.researchPosts.push(researchPost)
+
+    person.numResearchPosts = person.researchPosts.length
+
+    await person.save()
+    res.status(201).json({ message: 'Research added' })
+  } else {
+    res.status(404)
+    throw new Error('Person not found')
+  }
+})
+
+export {
+  getPersons,
+  getPersonById,
+  deletePerson,
+  createPerson,
+  updatePerson,
+  createPersonResearchPost,
+}

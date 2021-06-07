@@ -1,5 +1,21 @@
 import mongoose from 'mongoose'
 
+const researchSchema = mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    title: { type: String, required: true },
+    description: { type: String },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
 const personSchema = mongoose.Schema(
   {
     user: {
@@ -28,13 +44,7 @@ const personSchema = mongoose.Schema(
     description: {
       type: String,
     },
-    researchPosts: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Research',
-      },
-    ],
+    researchPosts: [researchSchema],
     numResearchPosts: {
       type: Number,
       required: true,
