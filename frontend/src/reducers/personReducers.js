@@ -16,6 +16,10 @@ import {
   PERSON_UPDATE_SUCCESS,
   PERSON_UPDATE_FAIL,
   PERSON_UPDATE_RESET,
+  PERSON_CREATE_RESEARCH_POST_REQUEST,
+  PERSON_CREATE_RESEARCH_POST_SUCCESS,
+  PERSON_CREATE_RESEARCH_POST_FAIL,
+  PERSON_CREATE_RESEARCH_POST_RESET,
 } from '../constants/personConstants'
 
 export const personListReducer = (state = { persons: [] }, action) => {
@@ -85,6 +89,21 @@ export const personUpdateReducer = (state = { person: {} }, action) => {
       return { loading: false, error: action.payload }
     case PERSON_UPDATE_RESET:
       return { person: {} }
+    default:
+      return state
+  }
+}
+
+export const personResearchPostCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PERSON_CREATE_RESEARCH_POST_REQUEST:
+      return { loading: true }
+    case PERSON_CREATE_RESEARCH_POST_SUCCESS:
+      return { loading: false, success: action.payload }
+    case PERSON_CREATE_RESEARCH_POST_FAIL:
+      return { loading: false, error: action.payload }
+    case PERSON_CREATE_RESEARCH_POST_RESET:
+      return {}
     default:
       return state
   }
