@@ -21,12 +21,14 @@ import {
 } from '../constants/personConstants'
 
 export const listPersons =
-  (keyword = '') =>
+  (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     try {
       dispatch({ type: PERSON_LIST_REQUEST })
 
-      const { data } = await axios.get(`/api/persons?keyword=${keyword}`)
+      const { data } = await axios.get(
+        `/api/persons?keyword=${keyword}&pageNumber=${pageNumber}`
+      )
 
       dispatch({
         type: PERSON_LIST_SUCCESS,

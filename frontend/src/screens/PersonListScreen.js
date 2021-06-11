@@ -4,6 +4,7 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
 import {
   listPersons,
   deletePerson,
@@ -12,10 +13,12 @@ import {
 import { PERSON_CREATE_RESET } from '../constants/personConstants'
 
 const PersonListScreen = ({ history, match }) => {
+  const pageNumber = match.params.pageNumber || 1
+
   const dispatch = useDispatch()
 
   const personList = useSelector((state) => state.personList)
-  const { loading, error, persons } = personList
+  const { loading, error, persons, page, pages } = personList
 
   const personDelete = useSelector((state) => state.personDelete)
   const {
@@ -45,9 +48,17 @@ const PersonListScreen = ({ history, match }) => {
     if (successCreate) {
       history.push(`/admin/person/${createdPerson._id}/edit`)
     } else {
-      dispatch(listPersons())
+      dispatch(listPersons('', pageNumber))
     }
-  }, [dispatch, history, userInfo, successDelete, successCreate, createdPerson])
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successDelete,
+    successCreate,
+    createdPerson,
+    pageNumber,
+  ])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
@@ -80,43 +91,46 @@ const PersonListScreen = ({ history, match }) => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <Table striped bordered hover responsive className='table-sm'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NAME</th>
-              <th>ROLE</th>
-              <th>PARTY</th>
-              <th>STATE</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {persons.map((person) => (
-              <tr key={person._id}>
-                <td>{person._id}</td>
-                <td>{person.name}</td>
-                <td>{person.role}</td>
-                <td>{person.party}</td>
-                <td>{person.state}</td>
-                <td>
-                  <LinkContainer to={`/admin/person/${person._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
-                      <i className='fas fa-edit'></i>
-                    </Button>
-                  </LinkContainer>
-                  <Button
-                    variant='danger'
-                    className='btn-sm'
-                    onClick={() => deleteHandler(person._id)}
-                  >
-                    <i className='fas fa-trash'></i>
-                  </Button>
-                </td>
+        <>
+          <Table striped bordered hover responsive className='table-sm'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>PRICE</th>
+                <th>CATEGORY</th>
+                <th>BRAND</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {persons.map((person) => (
+                <tr key={person._id}>
+                  <td>{person._id}</td>
+                  <td>{person.name}</td>
+                  <td>${person.price}</td>
+                  <td>{person.category}</td>
+                  <td>{person.brand}</td>
+                  <td>
+                    <LinkContainer to={`/admin/person/${person._id}/edit`}>
+                      <Button variant='light' className='btn-sm'>
+                        <i className='fas fa-edit'></i>
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant='danger'
+                      className='btn-sm'
+                      onClick={() => deleteHandler(person._id)}
+                    >
+                      <i className='fas fa-trash'></i>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Paginate pages={pages} page={page} isAdmin={true} />
+        </>
       )}
     </>
   )

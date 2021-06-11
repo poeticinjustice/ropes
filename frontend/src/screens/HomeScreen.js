@@ -4,19 +4,22 @@ import { Row, Col } from 'react-bootstrap'
 import Person from '../components/Person'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
 import { listPersons } from '../actions/personActions'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
 
+  const pageNumber = match.params.pageNumber || 1
+
   const dispatch = useDispatch()
 
   const personList = useSelector((state) => state.personList)
-  const { loading, error, persons } = personList
+  const { loading, error, persons, page, pages } = personList
 
   useEffect(() => {
-    dispatch(listPersons(keyword))
-  }, [dispatch, keyword])
+    dispatch(listPersons(keyword, pageNumber))
+  }, [dispatch, keyword, pageNumber])
 
   return (
     <>
@@ -26,13 +29,20 @@ const HomeScreen = ({ match }) => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <Row>
-          {persons.map((person) => (
-            <Col key={person._id} sm={12} md={6} lg={4} xl={3}>
-              <Person person={person} />
-            </Col>
-          ))}
-        </Row>
+        <>
+          <Row>
+            {persons.map((person) => (
+              <Col key={person._id} sm={12} md={6} lg={4} xl={3}>
+                <Person person={person} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
+        </>
       )}
     </>
   )
