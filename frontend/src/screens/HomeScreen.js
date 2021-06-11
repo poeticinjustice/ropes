@@ -6,15 +6,17 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listPersons } from '../actions/personActions'
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+  const keyword = match.params.keyword
+
   const dispatch = useDispatch()
 
   const personList = useSelector((state) => state.personList)
   const { loading, error, persons } = personList
 
   useEffect(() => {
-    dispatch(listPersons())
-  }, [dispatch])
+    dispatch(listPersons(keyword))
+  }, [dispatch, keyword])
 
   return (
     <>

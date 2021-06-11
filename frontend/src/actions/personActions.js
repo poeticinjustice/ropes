@@ -20,26 +20,28 @@ import {
   PERSON_CREATE_RESEARCH_POST_FAIL,
 } from '../constants/personConstants'
 
-export const listPersons = () => async (dispatch) => {
-  try {
-    dispatch({ type: PERSON_LIST_REQUEST })
+export const listPersons =
+  (keyword = '') =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PERSON_LIST_REQUEST })
 
-    const { data } = await axios.get('/api/persons')
+      const { data } = await axios.get(`/api/persons?keyword=${keyword}`)
 
-    dispatch({
-      type: PERSON_LIST_SUCCESS,
-      payload: data,
-    })
-  } catch (error) {
-    dispatch({
-      type: PERSON_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    })
+      dispatch({
+        type: PERSON_LIST_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: PERSON_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
   }
-}
 
 export const listPersonDetails = (id) => async (dispatch) => {
   try {

@@ -5,7 +5,16 @@ import Person from '../models/personModel.js'
 // @route   GET /api/persons
 // @access  Public
 const getPersons = asyncHandler(async (req, res) => {
-  const persons = await Person.find({})
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {}
+
+  const persons = await Person.find({ ...keyword })
 
   res.json(persons)
 })

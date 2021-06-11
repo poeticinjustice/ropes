@@ -27,6 +27,7 @@ const App = () => {
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />{' '}
           <Route path='/admin/personlist' component={PersonListScreen} />
           <Route path='/admin/person/:id/edit' component={PersonEditScreen} />
+          <Route path='/search/:keyword' component={HomeScreen} />
           <Route path='/' component={HomeScreen} exact />
         </Container>
       </main>
