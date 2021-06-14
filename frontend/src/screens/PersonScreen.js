@@ -25,16 +25,21 @@ const PersonScreen = ({ match }) => {
   const personResearchPostCreate = useSelector(
     (state) => state.personResearchPostCreate
   )
-  const { success: successPersonResearchPost, error: errorPersonResearchPost } =
-    personResearchPostCreate
+  const {
+    success: successPersonResearchPost,
+    loading: loadingPersonResearchPost,
+    error: errorPersonResearchPost,
+  } = personResearchPostCreate
 
   useEffect(() => {
     if (successPersonResearchPost) {
       setTitle('')
       setDescription('')
+    }
+    if (!person._id || person._id !== match.params.id) {
+      dispatch(listPersonDetails(match.params.id))
       dispatch({ type: PERSON_CREATE_RESEARCH_POST_RESET })
     }
-    dispatch(listPersonDetails(match.params.id))
   }, [dispatch, match, successPersonResearchPost])
 
   const submitHandler = (e) => {
@@ -114,6 +119,12 @@ const PersonScreen = ({ match }) => {
                 ))}
                 <ListGroup.Item>
                   <h2>Post Research</h2>
+                  {successPersonResearchPost && (
+                    <Message variant='success'>
+                      Research posted successfully
+                    </Message>
+                  )}
+                  {loadingPersonResearchPost && <Loader />}
                   {errorPersonResearchPost && (
                     <Message variant='danger'>
                       {errorPersonResearchPost}
@@ -139,7 +150,11 @@ const PersonScreen = ({ match }) => {
                           onChange={(e) => setDescription(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button type='submit' variant='primary'>
+                      <Button
+                        disabled={loadingPersonResearchPost}
+                        type='submit'
+                        variant='primary'
+                      >
                         Submit
                       </Button>
                     </Form>
