@@ -46,7 +46,7 @@ export const personDetailsReducer = (
 ) => {
   switch (action.type) {
     case PERSON_DETAILS_REQUEST:
-      return { loading: true, ...state }
+      return { ...state, loading: true }
     case PERSON_DETAILS_SUCCESS:
       return { loading: false, person: action.payload }
     case PERSON_DETAILS_FAIL:

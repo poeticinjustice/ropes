@@ -41,7 +41,7 @@ const PersonListScreen = ({ history, match }) => {
   useEffect(() => {
     dispatch({ type: PERSON_CREATE_RESET })
 
-    if (!userInfo.isAdmin) {
+    if (!userInfo || !userInfo.isAdmin) {
       history.push('/login')
     }
 
@@ -95,22 +95,22 @@ const PersonListScreen = ({ history, match }) => {
           <Table striped bordered hover responsive className='table-sm'>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
+                <th>STATE</th>
+                <th>PARTY</th>
+                <th>ROLE</th>
+                <th>DESCRIPTION</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {persons.map((person) => (
                 <tr key={person._id}>
-                  <td>{person._id}</td>
                   <td>{person.name}</td>
-                  <td>${person.price}</td>
-                  <td>{person.category}</td>
-                  <td>{person.brand}</td>
+                  <td>{person.state}</td>
+                  <td>{person.party}</td>
+                  <td>{person.role}</td>
+                  <td>{person.description}</td>
                   <td>
                     <LinkContainer to={`/admin/person/${person._id}/edit`}>
                       <Button variant='light' className='btn-sm'>

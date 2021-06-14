@@ -19,6 +19,7 @@ import {
   PERSON_CREATE_RESEARCH_POST_SUCCESS,
   PERSON_CREATE_RESEARCH_POST_FAIL,
 } from '../constants/personConstants'
+import { logout } from './userActions'
 
 export const listPersons =
   (keyword = '', pageNumber = '') =>
@@ -88,12 +89,16 @@ export const deletePerson = (id) => async (dispatch, getState) => {
       type: PERSON_DELETE_SUCCESS,
     })
   } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
     dispatch({
       type: PERSON_DELETE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: message,
     })
   }
 }
@@ -121,12 +126,16 @@ export const createPerson = () => async (dispatch, getState) => {
       payload: data,
     })
   } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
     dispatch({
       type: PERSON_CREATE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: message,
     })
   }
 }
@@ -159,12 +168,16 @@ export const updatePerson = (person) => async (dispatch, getState) => {
       payload: data,
     })
   } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
     dispatch({
       type: PERSON_UPDATE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: message,
     })
   }
 }
@@ -198,12 +211,16 @@ export const createPersonResearchPost =
         payload: 'Research Posted!',
       })
     } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
       dispatch({
         type: PERSON_CREATE_RESEARCH_POST_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: message,
       })
     }
   }
