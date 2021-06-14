@@ -37,9 +37,9 @@ const PersonScreen = ({ match }) => {
       setDescription('')
     }
     if (!person._id || person._id !== match.params.id) {
-      dispatch(listPersonDetails(match.params.id))
       dispatch({ type: PERSON_CREATE_RESEARCH_POST_RESET })
     }
+    dispatch(listPersonDetails(match.params.id))
   }, [dispatch, match, successPersonResearchPost])
 
   const submitHandler = (e) => {
@@ -105,6 +105,11 @@ const PersonScreen = ({ match }) => {
           <Row>
             <Col md={12}>
               <h2>Research</h2>
+              {successPersonResearchPost && (
+                <Message variant='success'>
+                  Research posted successfully
+                </Message>
+              )}
               {person.researchPosts.length === 0 && (
                 <Message>No Research Posted</Message>
               )}
@@ -119,11 +124,6 @@ const PersonScreen = ({ match }) => {
                 ))}
                 <ListGroup.Item>
                   <h2>Post Research</h2>
-                  {successPersonResearchPost && (
-                    <Message variant='success'>
-                      Research posted successfully
-                    </Message>
-                  )}
                   {loadingPersonResearchPost && <Loader />}
                   {errorPersonResearchPost && (
                     <Message variant='danger'>
