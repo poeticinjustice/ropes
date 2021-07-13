@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, Card, ListGroup, Button, Form } from 'react-bootstrap'
+import {
+  Container,
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Button,
+  Form,
+} from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import {
@@ -37,9 +45,10 @@ const PersonScreen = ({ match }) => {
       setDescription('')
     }
     if (!person._id || person._id !== match.params.id) {
+      dispatch(listPersonDetails(match.params.id))
       dispatch({ type: PERSON_CREATE_RESEARCH_POST_RESET })
     }
-    dispatch(listPersonDetails(match.params.id))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, match, successPersonResearchPost])
 
   const submitHandler = (e) => {
@@ -64,47 +73,68 @@ const PersonScreen = ({ match }) => {
       ) : (
         <>
           <Row>
-            <Col md={6}>
-              <Image src={person.image} alt={person.name} fluid />
-            </Col>
             <Col md={3}>
+              <Image src={person.image} alt={person.name} fluid />
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <h3>{person.name}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
+                  {person.party} from {person.state}
+                </ListGroup.Item>
+                <ListGroup.Item>
                   Description: {person.description}
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Ropes:</Col>
+                    <Col>{person.numResearchPosts}</Col>
+                  </Row>
                 </ListGroup.Item>
               </ListGroup>
             </Col>
-            <Col md={3}>
-              <Card>
-                <ListGroup variant='flush'>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Ropes:</Col>
-                      <Col>{person.numResearchPosts}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>
-                        <Button
-                          className='btn-block btn-light btn-outline-secondary'
-                          type='button'
-                        >
-                          Add ROPES
-                        </Button>
+            <Col>
+              <Container>
+                <Row>
+                  <Col md={7}>
+                    <h3>Title</h3>
+                  </Col>
+                  <Col md={2}>
+                    <h3>Updated</h3>
+                  </Col>
+                  <Col md={2}>
+                    <h3>Updater</h3>
+                  </Col>
+                  <Col md={1}>
+                    <h3>View</h3>
+                  </Col>
+                </Row>
+
+                {person.researchPosts
+                  .slice(0)
+                  .reverse()
+                  .map((researchPost) => (
+                    <Row key={researchPost._id}>
+                      <Col md={7}>
+                        <p>{researchPost.title}</p>
+                      </Col>
+                      <Col md={2}>
+                        <p>{researchPost.createdAt.substring(0, 10)}</p>
+                      </Col>
+                      <Col md={2}>
+                        <p>{researchPost.name}</p>
+                      </Col>
+                      <Col md={1}>
+                        <button>View</button>
                       </Col>
                     </Row>
-                  </ListGroup.Item>
-                </ListGroup>
-              </Card>
+                  ))}
+              </Container>
             </Col>
           </Row>
+
           <Row>
             <Col md={12}>
-              <h2>Research</h2>
               {successPersonResearchPost && (
                 <Message variant='success'>
                   Research posted successfully
@@ -113,17 +143,11 @@ const PersonScreen = ({ match }) => {
               {person.researchPosts.length === 0 && (
                 <Message>No Research Posted</Message>
               )}
-              <ListGroup variant='flush'>
-                {person.researchPosts.map((researchPost) => (
-                  <ListGroup.Item key={researchPost._id}>
-                    <strong>{researchPost.name}</strong>
-                    <p>{researchPost.createdAt.substring(0, 10)}</p>
-                    <p>{researchPost.title}</p>
-                    <p>{researchPost.description}</p>
-                  </ListGroup.Item>
-                ))}
+              <ListGroup>
                 <ListGroup.Item>
-                  <h2>Post Research</h2>
+                  <h3>
+                    <center>Post Research</center>
+                  </h3>
                   {loadingPersonResearchPost && <Loader />}
                   {errorPersonResearchPost && (
                     <Message variant='danger'>
