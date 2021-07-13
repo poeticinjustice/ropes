@@ -34,11 +34,8 @@ const PersonScreen = ({ match }) => {
   const personResearchPostCreate = useSelector(
     (state) => state.personResearchPostCreate
   )
-  const {
-    success: successPersonResearchPost,
-    loading: loadingPersonResearchPost,
-    error: errorPersonResearchPost,
-  } = personResearchPostCreate
+  const { success: successPersonResearchPost, error: errorPersonResearchPost } =
+    personResearchPostCreate
 
   useEffect(() => {
     if (successPersonResearchPost) {
@@ -151,7 +148,6 @@ const PersonScreen = ({ match }) => {
                   <h3>
                     <center>Post Research</center>
                   </h3>
-                  {loadingPersonResearchPost && <Loader />}
                   {errorPersonResearchPost && (
                     <Message variant='danger'>
                       {errorPersonResearchPost}
@@ -177,11 +173,7 @@ const PersonScreen = ({ match }) => {
                           onChange={(e) => setDescription(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button
-                        disabled={loadingPersonResearchPost}
-                        type='submit'
-                        variant='primary'
-                      >
+                      <Button type='submit' variant='primary'>
                         Submit
                       </Button>
                     </Form>

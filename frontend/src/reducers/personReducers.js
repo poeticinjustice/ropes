@@ -102,7 +102,7 @@ export const personUpdateReducer = (state = { person: {} }, action) => {
 export const personResearchPostCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case PERSON_CREATE_RESEARCH_POST_REQUEST:
-      return { loading: true }
+      return {}
     case PERSON_CREATE_RESEARCH_POST_SUCCESS:
       return { loading: false, success: true }
     case PERSON_CREATE_RESEARCH_POST_FAIL:
