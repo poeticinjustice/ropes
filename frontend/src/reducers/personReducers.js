@@ -104,7 +104,7 @@ export const personResearchPostCreateReducer = (state = {}, action) => {
     case PERSON_CREATE_RESEARCH_POST_REQUEST:
       return { loading: true }
     case PERSON_CREATE_RESEARCH_POST_SUCCESS:
-      return { loading: false, success: action.payload }
+      return { loading: false, success: true }
     case PERSON_CREATE_RESEARCH_POST_FAIL:
       return { loading: false, error: action.payload }
     case PERSON_CREATE_RESEARCH_POST_RESET:

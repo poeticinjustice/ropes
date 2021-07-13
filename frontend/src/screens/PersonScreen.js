@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import {
   listPersonDetails,
   createPersonResearchPost,
@@ -43,6 +44,7 @@ const PersonScreen = ({ match }) => {
     if (successPersonResearchPost) {
       setTitle('')
       setDescription('')
+      dispatch(listPersonDetails(match.params.id))
     }
     if (!person._id || person._id !== match.params.id) {
       dispatch(listPersonDetails(match.params.id))
@@ -63,6 +65,7 @@ const PersonScreen = ({ match }) => {
 
   return (
     <>
+      <Meta title={person.name} />
       <Link className='btn btn-light my-3' to='/'>
         Go Back
       </Link>

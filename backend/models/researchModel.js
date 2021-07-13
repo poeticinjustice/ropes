@@ -35,4 +35,4 @@ const researchSchema = mongoose.Schema(
 
 const Research = mongoose.model('Research', researchSchema)
 
-export default Research
+// export default Research

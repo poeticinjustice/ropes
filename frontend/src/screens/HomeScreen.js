@@ -5,6 +5,7 @@ import Person from '../components/Person'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
+import Meta from '../components/Meta'
 import { listPersons } from '../actions/personActions'
 
 const HomeScreen = ({ match }) => {
@@ -23,6 +24,7 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
+      <Meta />
       <h1>Latest ROPES</h1>
       {loading ? (
         <Loader />

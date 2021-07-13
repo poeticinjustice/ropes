@@ -209,7 +209,7 @@ export const createPersonResearchPost =
 
       dispatch({
         type: PERSON_CREATE_RESEARCH_POST_SUCCESS,
-        payload: 'Research Posted!',
+        // payload: 'Research Posted!',
       })
     } catch (error) {
       const message =
