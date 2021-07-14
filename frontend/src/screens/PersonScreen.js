@@ -87,7 +87,7 @@ const PersonScreen = ({ match }) => {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Ropes:</Col>
+                    <Col>Research:</Col>
                     <Col>{person.numResearchPosts}</Col>
                   </Row>
                 </ListGroup.Item>

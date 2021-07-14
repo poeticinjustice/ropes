@@ -21,8 +21,12 @@ const Person = ({ person }) => {
             {person.party} from {person.state}
           </div>
         </Card.Text>
-        <Card.Text as='h3'>
-          <div className='my-3'>Latest Ropes: {person.posts}</div>
+        <Card.Text as='div'>
+          <div className='my-3'>
+            Research Posts:{' '}
+            {(person.researchPosts.length === 0 && 'None') ||
+              person.researchPosts.length}
+          </div>
         </Card.Text>
       </Card.Body>
     </Card>

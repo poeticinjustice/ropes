@@ -107,7 +107,7 @@ const ProfileScreen = ({ location, history }) => {
         )}
       </Col>
       <Col md={9}>
-        <h2>My ROPES</h2>
+        <h2>My Research</h2>
       </Col>
     </Row>
   )
