@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -106,7 +107,9 @@ const PersonListScreen = ({ history, match }) => {
             <tbody>
               {persons.map((person) => (
                 <tr key={person._id}>
-                  <td>{person.name}</td>
+                  <td>
+                    <Link to={`/person/${person._id}`}>{person.name}</Link>
+                  </td>
                   <td>{person.state}</td>
                   <td>{person.party}</td>
                   <td>{person.role}</td>

@@ -26,39 +26,41 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route render={({ history }) => <SearchBox history={history} />} />
-            <Nav className='ml-auto'>
-              <LinkContainer to='/mypage'>
-                <Nav.Link to='/mypage'>
-                  <i className='fas fa-scroll'></i> My Page
-                </Nav.Link>
-              </LinkContainer>
-              {userInfo ? (
+            {userInfo ? (
+              <Nav className='ml-auto'>
+                <LinkContainer to='/mypage'>
+                  <Nav.Link to='/mypage'>
+                    <i className='fas fa-scroll'></i> My Page
+                  </Nav.Link>
+                </LinkContainer>
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                    <NavDropdown.Item>My Profile</NavDropdown.Item>
                   </LinkContainer>
+                  {userInfo && userInfo.isAdmin && (
+                    <>
+                      <LinkContainer to='/admin/userList'>
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to='/admin/personlist'>
+                        <NavDropdown.Item>Persons</NavDropdown.Item>
+                      </LinkContainer>
+                    </>
+                  )}
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
-              ) : (
+              </Nav>
+            ) : (
+              <Nav className='ml-auto'>
                 <LinkContainer to='/login'>
                   <Nav.Link>
                     <i className='fas fa-user'></i> Sign In
                   </Nav.Link>
                 </LinkContainer>
-              )}
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminmenu'>
-                  <LinkContainer to='/admin/userList'>
-                    <NavDropdown.Item>Users</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to='/admin/personlist'>
-                    <NavDropdown.Item>Persons</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              )}
-            </Nav>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>

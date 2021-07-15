@@ -64,7 +64,7 @@ const PersonScreen = ({ match }) => {
     <>
       <Meta title={person.name} />
       <Link className='btn btn-light my-3' to='/'>
-        Go Back
+        List
       </Link>
       {loading ? (
         <Loader />
