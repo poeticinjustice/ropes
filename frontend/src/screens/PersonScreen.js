@@ -95,21 +95,24 @@ const PersonScreen = ({ match }) => {
             </Col>
             <Col>
               <Container>
-                <Row>
-                  <Col md={7}>
-                    <h3>Title</h3>
-                  </Col>
-                  <Col md={2}>
-                    <h3>Updated</h3>
-                  </Col>
-                  <Col md={2}>
-                    <h3>Updater</h3>
-                  </Col>
-                  <Col md={1}>
-                    <h3>View</h3>
-                  </Col>
-                </Row>
-
+                {person.researchPosts.length > 0 ? (
+                  <Row>
+                    <Col md={7}>
+                      <h3>Title</h3>
+                    </Col>
+                    <Col md={2}>
+                      <h3>Updated</h3>
+                    </Col>
+                    <Col md={2}>
+                      <h3>Updater</h3>
+                    </Col>
+                    <Col md={1}>
+                      <h3>View</h3>
+                    </Col>
+                  </Row>
+                ) : (
+                  <Message>No Research Posted</Message>
+                )}
                 {person.researchPosts
                   .slice(0)
                   .reverse()
@@ -139,9 +142,6 @@ const PersonScreen = ({ match }) => {
                 <Message variant='success'>
                   Research posted successfully
                 </Message>
-              )}
-              {person.researchPosts.length === 0 && (
-                <Message>No Research Posted</Message>
               )}
               <ListGroup>
                 <ListGroup.Item>
