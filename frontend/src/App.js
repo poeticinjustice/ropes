@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import PersonScreen from './screens/PersonScreen'
+import ResearchScreen from './screens/ResearchScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
@@ -23,6 +24,7 @@ const App = () => {
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/person/:id' component={PersonScreen} />
+          <Route path='/research/:id' component={ResearchScreen} />
           <Route path='/admin/userList' component={UserListScreen} />
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />{' '}
           <Route path='/admin/personlist' component={PersonListScreen} exact />
@@ -40,6 +42,7 @@ const App = () => {
             exact
           />
           <Route path='/' component={HomeScreen} exact />
+          <Route path='/research' component={ResearchScreen} exact />
         </Container>
       </main>
       <Footer />

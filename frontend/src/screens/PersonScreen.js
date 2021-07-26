@@ -13,11 +13,9 @@ import {
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
-import {
-  listPersonDetails,
-  createPersonResearchPost,
-} from '../actions/personActions'
-import { PERSON_CREATE_RESEARCH_POST_RESET } from '../constants/personConstants'
+import { listPersonDetails } from '../actions/personActions'
+import { createResearch } from '../actions/researchActions'
+import { RESEARCH_CREATE_RESET } from '../constants/researchConstants'
 
 const PersonScreen = ({ match }) => {
   const [title, setTitle] = useState('')
@@ -31,29 +29,26 @@ const PersonScreen = ({ match }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const personResearchPostCreate = useSelector(
-    (state) => state.personResearchPostCreate
-  )
-  const { success: successPersonResearchPost, error: errorPersonResearchPost } =
-    personResearchPostCreate
+  const researchCreate = useSelector((state) => state.researchCreate)
+  const { success: successResearch, error: errorResearch } = researchCreate
 
   useEffect(() => {
-    if (successPersonResearchPost) {
+    if (successResearch) {
       setTitle('')
       setDescription('')
       dispatch(listPersonDetails(match.params.id))
     }
     if (!person._id || person._id !== match.params.id) {
       dispatch(listPersonDetails(match.params.id))
-      dispatch({ type: PERSON_CREATE_RESEARCH_POST_RESET })
+      dispatch({ type: RESEARCH_CREATE_RESET })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, match, successPersonResearchPost])
+  }, [dispatch, match, successResearch])
 
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
-      createPersonResearchPost(match.params.id, {
+      createResearch(match.params.id, {
         title,
         description,
       })
@@ -63,8 +58,8 @@ const PersonScreen = ({ match }) => {
   return (
     <>
       <Meta title={person.name} />
-      <Link className='btn btn-light my-3' to='/'>
-        List
+      <Link className='btn btn-light my-3' to='/research'>
+        Research
       </Link>
       {loading ? (
         <Loader />
@@ -88,14 +83,14 @@ const PersonScreen = ({ match }) => {
                 <ListGroup.Item>
                   <Row>
                     <Col>Research:</Col>
-                    <Col>{person.numResearchPosts}</Col>
+                    <Col>{person.numResearch}</Col>
                   </Row>
                 </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col>
               <Container>
-                {person.researchPosts.length > 0 ? (
+                {person.research.length > 0 ? (
                   <Row>
                     <Col md={7}>
                       <h3>Title</h3>
@@ -113,19 +108,19 @@ const PersonScreen = ({ match }) => {
                 ) : (
                   <Message>No Research Posted</Message>
                 )}
-                {person.researchPosts
+                {person.research
                   .slice(0)
                   .reverse()
-                  .map((researchPost) => (
-                    <Row key={researchPost._id}>
+                  .map((research) => (
+                    <Row key={research._id}>
                       <Col md={7}>
-                        <p>{researchPost.title}</p>
+                        <p>{research.title}</p>
                       </Col>
                       <Col md={2}>
-                        <p>{researchPost.createdAt.substring(0, 10)}</p>
+                        <p>{research.createdAt.substring(0, 10)}</p>
                       </Col>
                       <Col md={2}>
-                        <p>{researchPost.name}</p>
+                        <p>{research.name}</p>
                       </Col>
                       <Col md={1}>
                         <button>View</button>
@@ -138,7 +133,7 @@ const PersonScreen = ({ match }) => {
 
           <Row>
             <Col md={12}>
-              {successPersonResearchPost && (
+              {successResearch && (
                 <Message variant='success'>
                   Research posted successfully
                 </Message>
@@ -148,10 +143,8 @@ const PersonScreen = ({ match }) => {
                   <h3>
                     <center>Post Research</center>
                   </h3>
-                  {errorPersonResearchPost && (
-                    <Message variant='danger'>
-                      {errorPersonResearchPost}
-                    </Message>
+                  {errorResearch && (
+                    <Message variant='danger'>{errorResearch}</Message>
                   )}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>

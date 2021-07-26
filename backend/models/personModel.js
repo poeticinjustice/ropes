@@ -1,28 +1,7 @@
 import mongoose from 'mongoose'
 
-const researchSchema = mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    title: { type: String, required: true },
-    description: { type: String },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
-  },
-  {
-    timestamps: true,
-  }
-)
-
 const personSchema = mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'User',
-    },
     name: {
       type: String,
       required: true,
@@ -44,15 +23,29 @@ const personSchema = mongoose.Schema(
     description: {
       type: String,
     },
-    researchPosts: [researchSchema],
-    numResearchPosts: {
+    research: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Research',
+      },
+    ],
+    numResearch: {
       type: Number,
       required: true,
       default: 0,
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
   },
   {
     timestamps: true,
+  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 )
 

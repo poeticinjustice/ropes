@@ -23,9 +23,8 @@ const Person = ({ person }) => {
         </Card.Text>
         <Card.Text as='div'>
           <div className='my-3'>
-            Research Posts:{' '}
-            {(person.researchPosts.length === 0 && 'None') ||
-              person.researchPosts.length}
+            Research:{' '}
+            {(person.research.length === 0 && 'None') || person.research.length}
           </div>
         </Card.Text>
       </Card.Body>

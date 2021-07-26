@@ -1,17 +1,21 @@
 import express from 'express'
-const router = express.Router()
+const router = express.Router({ mergeParams: true })
 import {
   getPersons,
   getPersonById,
   deletePerson,
   createPerson,
   updatePerson,
-  createPersonResearchPost,
 } from '../controllers/personController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
+// Include research router
+import researchRouter from './researchRoutes.js'
+
+// Re-route into research router
+router.use('/:personId/research', researchRouter)
+
 router.route('/').get(getPersons).post(protect, admin, createPerson)
-router.route('/:id/researchposts').post(protect, createPersonResearchPost)
 router
   .route('/:id')
   .get(getPersonById)

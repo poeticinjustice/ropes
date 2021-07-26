@@ -15,9 +15,6 @@ import {
   PERSON_UPDATE_REQUEST,
   PERSON_UPDATE_SUCCESS,
   PERSON_UPDATE_FAIL,
-  PERSON_CREATE_RESEARCH_POST_REQUEST,
-  PERSON_CREATE_RESEARCH_POST_SUCCESS,
-  PERSON_CREATE_RESEARCH_POST_FAIL,
 } from '../constants/personConstants'
 import { logout } from './userActions'
 
@@ -182,46 +179,3 @@ export const updatePerson = (person) => async (dispatch, getState) => {
     })
   }
 }
-
-export const createPersonResearchPost =
-  (personId, researchPost) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: PERSON_CREATE_RESEARCH_POST_REQUEST,
-      })
-
-      const {
-        userLogin: { userInfo },
-      } = getState()
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      }
-
-      await axios.post(
-        `/api/persons/${personId}/researchposts`,
-        researchPost,
-        config
-      )
-
-      dispatch({
-        type: PERSON_CREATE_RESEARCH_POST_SUCCESS,
-        // payload: 'Research Posted!',
-      })
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
-      if (message === 'Not authorized, token failed') {
-        dispatch(logout())
-      }
-      dispatch({
-        type: PERSON_CREATE_RESEARCH_POST_FAIL,
-        payload: message,
-      })
-    }
-  }

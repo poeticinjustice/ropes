@@ -8,6 +8,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 import personRoutes from './routes/personRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import researchRoutes from './routes/researchRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 
 dotenv.config()
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 
 app.use('/api/persons', personRoutes)
+app.use('/api/research', researchRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/upload', uploadRoutes)
 

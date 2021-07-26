@@ -7,7 +7,6 @@ import {
   personDeleteReducer,
   personCreateReducer,
   personUpdateReducer,
-  personResearchPostCreateReducer,
 } from './reducers/personReducers'
 import {
   userLoginReducer,
@@ -18,6 +17,10 @@ import {
   userDeleteReducer,
   userUpdateReducer,
 } from './reducers/userReducers'
+import {
+  researchListReducer,
+  researchCreateReducer,
+} from './reducers/researchReducers'
 
 const reducer = combineReducers({
   personList: personListReducer,
@@ -25,7 +28,8 @@ const reducer = combineReducers({
   personDelete: personDeleteReducer,
   personCreate: personCreateReducer,
   personUpdate: personUpdateReducer,
-  personResearchPostCreate: personResearchPostCreateReducer,
+  researchCreate: researchCreateReducer,
+  researchList: researchListReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,

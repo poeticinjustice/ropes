@@ -2,10 +2,10 @@ import mongoose from 'mongoose'
 
 const researchSchema = mongoose.Schema(
   {
-    user: {
+    person: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: 'User',
+      ref: 'Person',
     },
     title: {
       type: String,
@@ -13,7 +13,11 @@ const researchSchema = mongoose.Schema(
     },
     description: {
       type: String,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: 'User',
     },
     comments: [
       {
@@ -33,6 +37,6 @@ const researchSchema = mongoose.Schema(
   }
 )
 
-const Research = mongoose.model('Research', researchSchema)
+const Research = mongoose.model('Research', researchSchema, 'allResearch')
 
-// export default Research
+export default Research
