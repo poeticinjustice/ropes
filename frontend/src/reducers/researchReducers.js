@@ -11,11 +11,11 @@ import {
 export const researchListReducer = (state = { allResearch: [] }, action) => {
   switch (action.type) {
     case RESEARCH_LIST_REQUEST:
-      return { loading: true, allResearch: [] }
+      return { loading: true }
     case RESEARCH_LIST_SUCCESS:
       return {
         loading: false,
-        allResearch: action.payload.allResearch,
+        allResearch: action.payload,
       }
     case RESEARCH_LIST_FAIL:
       return { loading: false, error: action.payload }

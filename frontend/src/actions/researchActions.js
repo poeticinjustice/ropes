@@ -13,7 +13,7 @@ export const listResearch = () => async (dispatch) => {
   try {
     dispatch({ type: RESEARCH_LIST_REQUEST })
 
-    const { data } = await axios.get(`/api/research`)
+    const { data } = await axios.get('/api/research')
 
     dispatch({
       type: RESEARCH_LIST_SUCCESS,
@@ -52,7 +52,6 @@ export const createResearch =
 
       dispatch({
         type: RESEARCH_CREATE_SUCCESS,
-        // payload: 'Research Posted!',
       })
     } catch (error) {
       const message =

@@ -7,18 +7,19 @@ import Loader from '../components/Loader'
 import { listResearch } from '../actions/researchActions'
 
 const ResearchScreen = () => {
+  const dispatch = useDispatch()
+
   const researchList = useSelector((state) => state.researchList)
   const { loading, error, allResearch } = researchList
 
-  const dispatch = useDispatch()
-
   useEffect(() => {
-    dispatch(listResearch)
+    dispatch(listResearch())
   }, [dispatch])
 
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
+        {console.log('test')}
         All Peeps
       </Link>
       {loading ? (
@@ -33,6 +34,7 @@ const ResearchScreen = () => {
             </tr>
           </thead>
           <tbody>
+            {/* {allResearch} */}
             {allResearch.map((research) => (
               <tr key={research._id}>
                 <td>{research.title}</td>
