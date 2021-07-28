@@ -19,7 +19,6 @@ const ResearchScreen = () => {
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
-        {console.log('test')}
         All Peeps
       </Link>
       {loading ? (
@@ -34,7 +33,6 @@ const ResearchScreen = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {allResearch} */}
             {allResearch.map((research) => (
               <tr key={research._id}>
                 <td>{research.title}</td>

@@ -16,6 +16,12 @@ import {
   PERSON_UPDATE_SUCCESS,
   PERSON_UPDATE_FAIL,
   PERSON_UPDATE_RESET,
+  PERSON_RESEARCH_LIST_REQUEST,
+  PERSON_RESEARCH_LIST_SUCCESS,
+  PERSON_RESEARCH_LIST_FAIL,
+  // PERSON_RESEARCH_DETAILS_REQUEST,
+  // PERSON_RESEARCH_DETAILS_SUCCESS,
+  // PERSON_RESEARCH_DETAILS_FAIL,
 } from '../constants/personConstants'
 
 export const personListReducer = (state = { persons: [] }, action) => {
@@ -36,10 +42,7 @@ export const personListReducer = (state = { persons: [] }, action) => {
   }
 }
 
-export const personDetailsReducer = (
-  state = { person: { research: [] } },
-  action
-) => {
+export const personDetailsReducer = (state = { person: {} }, action) => {
   switch (action.type) {
     case PERSON_DETAILS_REQUEST:
       return { ...state, loading: true }
@@ -90,6 +93,25 @@ export const personUpdateReducer = (state = { person: {} }, action) => {
       return { loading: false, error: action.payload }
     case PERSON_UPDATE_RESET:
       return { person: {} }
+    default:
+      return state
+  }
+}
+
+export const personResearchListReducer = (
+  state = { personAllResearch: [] },
+  action
+) => {
+  switch (action.type) {
+    case PERSON_RESEARCH_LIST_REQUEST:
+      return { ...state, loading: true }
+    case PERSON_RESEARCH_LIST_SUCCESS:
+      return {
+        loading: false,
+        personAllResearch: action.payload,
+      }
+    case PERSON_RESEARCH_LIST_FAIL:
+      return { loading: false, error: action.payload }
     default:
       return state
   }

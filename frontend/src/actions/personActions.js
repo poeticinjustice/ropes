@@ -15,6 +15,12 @@ import {
   PERSON_UPDATE_REQUEST,
   PERSON_UPDATE_SUCCESS,
   PERSON_UPDATE_FAIL,
+  PERSON_RESEARCH_LIST_REQUEST,
+  PERSON_RESEARCH_LIST_SUCCESS,
+  PERSON_RESEARCH_LIST_FAIL,
+  // PERSON_RESEARCH_DETAILS_REQUEST,
+  // PERSON_RESEARCH_DETAILS_SUCCESS,
+  // PERSON_RESEARCH_DETAILS_FAIL,
 } from '../constants/personConstants'
 import { logout } from './userActions'
 
@@ -176,6 +182,27 @@ export const updatePerson = (person) => async (dispatch, getState) => {
     dispatch({
       type: PERSON_UPDATE_FAIL,
       payload: message,
+    })
+  }
+}
+
+export const listPersonResearch = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: PERSON_RESEARCH_LIST_REQUEST })
+
+    const { data } = await axios.get(`/api/persons/${id}/research`)
+
+    dispatch({
+      type: PERSON_RESEARCH_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PERSON_RESEARCH_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     })
   }
 }

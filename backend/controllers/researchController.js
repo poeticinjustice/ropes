@@ -8,14 +8,14 @@ import Research from '../models/researchModel.js'
 // @access  Public
 
 const getAllResearch = asyncHandler(async (req, res) => {
-  // if (req.params.personId) {
-  //   const personResearch = await Research.find({ person: req.params.personId })
+  if (req.params.personId) {
+    const personResearch = await Research.find({ person: req.params.personId })
 
-  //   return res.json(personResearch)
-  // } else {
-  const allResearch = await Research.find({})
-  return res.json(allResearch)
-  // }
+    return res.json(personResearch)
+  } else {
+    const allResearch = await Research.find({})
+    return res.json(allResearch)
+  }
 })
 
 // @desc    Fetch single research post

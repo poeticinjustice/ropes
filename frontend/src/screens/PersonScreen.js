@@ -13,7 +13,7 @@ import {
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
-import { listPersonDetails } from '../actions/personActions'
+import { listPersonDetails, listPersonResearch } from '../actions/personActions'
 import { createResearch } from '../actions/researchActions'
 import { RESEARCH_CREATE_RESET } from '../constants/researchConstants'
 
@@ -29,10 +29,17 @@ const PersonScreen = ({ match }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const personResearchList = useSelector((state) => state.personResearchList)
+  const { personAllResearch } = personResearchList
+
   const researchCreate = useSelector((state) => state.researchCreate)
   const { success: successResearch, error: errorResearch } = researchCreate
 
   useEffect(() => {
+    if (person._id) {
+      dispatch(listPersonResearch(match.params.id))
+    }
+
     if (successResearch) {
       setTitle('')
       setDescription('')
@@ -43,7 +50,7 @@ const PersonScreen = ({ match }) => {
       dispatch({ type: RESEARCH_CREATE_RESET })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, match, successResearch])
+  }, [dispatch, listPersonResearch, match, person._id, successResearch])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -90,43 +97,29 @@ const PersonScreen = ({ match }) => {
             </Col>
             <Col>
               <Container>
-                {person.research.length > 0 ? (
-                  <Row>
-                    <Col md={7}>
-                      <h3>Title</h3>
-                    </Col>
-                    <Col md={2}>
-                      <h3>Updated</h3>
-                    </Col>
-                    <Col md={2}>
-                      <h3>Updater</h3>
-                    </Col>
-                    <Col md={1}>
-                      <h3>View</h3>
-                    </Col>
-                  </Row>
-                ) : (
-                  <Message>No Research Posted</Message>
-                )}
-                {person.research
-                  .slice(0)
-                  .reverse()
-                  .map((research) => (
-                    <Row key={research._id}>
-                      <Col md={7}>
-                        <p>{research.title}</p>
-                      </Col>
-                      <Col md={2}>
-                        <p>{research.createdAt.substring(0, 10)}</p>
-                      </Col>
-                      <Col md={2}>
-                        <p>{research.name}</p>
-                      </Col>
-                      <Col md={1}>
-                        <button>View</button>
-                      </Col>
-                    </Row>
-                  ))}
+                <Row>
+                  <Col>
+                    {personAllResearch
+                      .slice(0)
+                      .reverse()
+                      .map((research) => (
+                        <Row key={research._id}>
+                          <Col md={7}>
+                            <p>{research.title}</p>
+                          </Col>
+                          <Col md={2}>
+                            <p>{research.createdAt.substring(0, 10)}</p>
+                          </Col>
+                          <Col md={2}>
+                            <p>{research.name}</p>
+                          </Col>
+                          <Col md={1}>
+                            <button>View</button>
+                          </Col>
+                        </Row>
+                      ))}
+                  </Col>
+                </Row>
               </Container>
             </Col>
           </Row>

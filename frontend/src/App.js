@@ -13,6 +13,7 @@ import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import PersonListScreen from './screens/PersonListScreen'
 import PersonEditScreen from './screens/PersonEditScreen'
+import TestScreen from './screens/TestScreen'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
       <main className='py-3'>
         <Container>
           <Route path='/login' component={LoginScreen} />
+          <Route path='/test' component={TestScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/person/:id' component={PersonScreen} />
