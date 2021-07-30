@@ -4,14 +4,15 @@ import { Container } from 'react-bootstrap'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
+import PersonListScreen from './screens/PersonListScreen'
 import PersonScreen from './screens/PersonScreen'
+import ResearchListScreen from './screens/ResearchListScreen'
 import ResearchScreen from './screens/ResearchScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
-import PersonListScreen from './screens/PersonListScreen'
 import PersonEditScreen from './screens/PersonEditScreen'
 import TestScreen from './screens/TestScreen'
 
@@ -22,7 +23,6 @@ const App = () => {
       <main className='py-3'>
         <Container>
           <Route path='/login' component={LoginScreen} />
-          <Route path='/test' component={TestScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/person/:id' component={PersonScreen} />
@@ -44,7 +44,8 @@ const App = () => {
             exact
           />
           <Route path='/' component={HomeScreen} exact />
-          <Route path='/research' component={ResearchScreen} exact />
+          <Route path='/research' component={ResearchListScreen} exact />
+          <Route path='/test' component={TestScreen} />
         </Container>
       </main>
       <Footer />

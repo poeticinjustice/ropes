@@ -6,7 +6,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listResearch } from '../actions/researchActions'
 
-const TestScreen = () => {
+const ResearchListScreen = () => {
   const dispatch = useDispatch()
 
   const researchList = useSelector((state) => state.researchList)
@@ -75,4 +75,4 @@ const TestScreen = () => {
   )
 }
 
-export default TestScreen
+export default ResearchListScreen

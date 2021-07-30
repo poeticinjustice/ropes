@@ -7,14 +7,14 @@ import Research from '../models/researchModel.js'
 // @route   GET /api/research/
 // @access  Public
 
-const getAllResearch = asyncHandler(async (req, res) => {
+const getResearch = asyncHandler(async (req, res) => {
   if (req.params.personId) {
     const personResearch = await Research.find({ person: req.params.personId })
 
     return res.json(personResearch)
   } else {
-    const allResearch = await Research.find({})
-    return res.json(allResearch)
+    const research = await Research.find({})
+    return res.json(research)
   }
 })
 
@@ -57,4 +57,4 @@ const createResearch = asyncHandler(async (req, res) => {
   })
 })
 
-export { getAllResearch, getResearchById, createResearch }
+export { getResearch, getResearchById, createResearch }

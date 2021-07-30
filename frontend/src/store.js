@@ -20,6 +20,7 @@ import {
 } from './reducers/userReducers'
 import {
   researchListReducer,
+  researchDetailsReducer,
   researchCreateReducer,
 } from './reducers/researchReducers'
 
@@ -32,6 +33,7 @@ const reducer = combineReducers({
   personResearchList: personResearchListReducer,
   researchCreate: researchCreateReducer,
   researchList: researchListReducer,
+  researchDetails: researchDetailsReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,

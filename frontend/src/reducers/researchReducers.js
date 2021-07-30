@@ -6,18 +6,34 @@ import {
   RESEARCH_CREATE_SUCCESS,
   RESEARCH_CREATE_FAIL,
   RESEARCH_CREATE_RESET,
+  RESEARCH_DETAILS_REQUEST,
+  RESEARCH_DETAILS_SUCCESS,
+  RESEARCH_DETAILS_FAIL,
 } from '../constants/researchConstants'
 
-export const researchListReducer = (state = { allResearch: [] }, action) => {
+export const researchListReducer = (state = { research: [] }, action) => {
   switch (action.type) {
     case RESEARCH_LIST_REQUEST:
       return { loading: true }
     case RESEARCH_LIST_SUCCESS:
       return {
         loading: false,
-        allResearch: action.payload,
+        research: action.payload,
       }
     case RESEARCH_LIST_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const researchDetailsReducer = (state = { research: {} }, action) => {
+  switch (action.type) {
+    case RESEARCH_DETAILS_REQUEST:
+      return { ...state, loading: true }
+    case RESEARCH_DETAILS_SUCCESS:
+      return { loading: false, research: action.payload }
+    case RESEARCH_DETAILS_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

@@ -7,9 +7,16 @@ const researchSchema = mongoose.Schema(
       required: true,
       ref: 'Person',
     },
+    personName: {
+      type: mongoose.Schema.Types.ObjectId.name,
+      ref: 'Person',
+    },
     title: {
       type: String,
       required: true,
+    },
+    teste: {
+      type: String,
     },
     description: {
       type: String,

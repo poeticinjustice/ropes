@@ -30,10 +30,12 @@ const PersonScreen = ({ match }) => {
   const { userInfo } = userLogin
 
   const personResearchList = useSelector((state) => state.personResearchList)
-  const { personAllResearch } = personResearchList
+  const { personResearch } = personResearchList
 
   const researchCreate = useSelector((state) => state.researchCreate)
   const { success: successResearch, error: errorResearch } = researchCreate
+
+  const noResearch = personResearch.length === 0
 
   useEffect(() => {
     if (person._id) {
@@ -65,8 +67,8 @@ const PersonScreen = ({ match }) => {
   return (
     <>
       <Meta title={person.name} />
-      <Link className='btn btn-light my-3' to='/research'>
-        Research
+      <Link className='btn btn-light my-3' to='/'>
+        All Peeps
       </Link>
       {loading ? (
         <Loader />
@@ -96,31 +98,52 @@ const PersonScreen = ({ match }) => {
               </ListGroup>
             </Col>
             <Col>
-              <Container>
-                <Row>
-                  <Col>
-                    {personAllResearch
-                      .slice(0)
-                      .reverse()
-                      .map((research) => (
-                        <Row key={research._id}>
-                          <Col md={7}>
-                            <p>{research.title}</p>
-                          </Col>
-                          <Col md={2}>
-                            <p>{research.createdAt.substring(0, 10)}</p>
-                          </Col>
-                          <Col md={2}>
-                            <p>{research.name}</p>
-                          </Col>
-                          <Col md={1}>
-                            <button>View</button>
-                          </Col>
-                        </Row>
-                      ))}
-                  </Col>
-                </Row>
-              </Container>
+              {noResearch ? (
+                <Message>No Research Posted</Message>
+              ) : (
+                <Container>
+                  <Row>
+                    <Col md={7}>
+                      <p>Title</p>
+                    </Col>
+                    <Col md={2}>
+                      <p>Date Posted</p>
+                    </Col>
+                    <Col md={2}>
+                      <p>User</p>
+                    </Col>
+                    <Col md={1}>
+                      <p>View</p>
+                    </Col>
+                  </Row>
+
+                  <Row>
+                    <Col>
+                      {personResearch
+                        .slice(0)
+                        .reverse()
+                        .map((research) => (
+                          <Row key={research._id}>
+                            <Col md={7}>
+                              <p>{research.title}</p>
+                            </Col>
+                            <Col md={2}>
+                              <p>{research.createdAt.substring(0, 10)}</p>
+                            </Col>
+                            <Col md={2}>
+                              <p>{research.name}</p>
+                            </Col>
+                            <Col md={1}>
+                              <Link to={`/research/${research._id}`}>
+                                <button>View</button>
+                              </Link>
+                            </Col>
+                          </Row>
+                        ))}
+                    </Col>
+                  </Row>
+                </Container>
+              )}
             </Col>
           </Row>
 
