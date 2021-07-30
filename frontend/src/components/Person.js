@@ -22,10 +22,10 @@ const Person = ({ person }) => {
           </div>
         </Card.Text>
         <Card.Text as='div'>
-          <div className='my-3'>
+          {/* <div className='my-3'>
             Research:{' '}
             {(person.research.length === 0 && 'None') || person.research.length}
-          </div>
+          </div> */}
         </Card.Text>
       </Card.Body>
     </Card>

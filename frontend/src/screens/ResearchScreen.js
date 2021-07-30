@@ -28,19 +28,19 @@ const ResearchScreen = ({ match }) => {
       ) : (
         <Container>
           <Row>
-            <Col md={2}>
+            <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Name</p>
             </Col>
-            <Col md={3}>
+            <Col md={3} xs={12} className='d-none d-md-block'>
               <p>Title</p>
             </Col>
-            <Col md={3}>
+            <Col md={3} xs={12} className='d-none d-md-block'>
               <p>Description</p>
             </Col>
-            <Col md={2}>
-              <p>Created By</p>
+            <Col md={2} xs={12} className='d-none d-md-block'>
+              <p>Posted By</p>
             </Col>
-            <Col md={2}>
+            <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Date Posted</p>
             </Col>
           </Row>
@@ -52,14 +52,30 @@ const ResearchScreen = ({ match }) => {
                 </Link>
               </p>
             </Col>
-            <Col md={3}>{research.title}</Col>
-            <Col md={3}>
+            <Col md={3} xs={12} className='d-none d-md-block'>
+              {research.title}
+            </Col>
+            <Col md={3} xs={12} className='d-xs-block d-md-none'>
+              <p>Title: {research.title}</p>
+            </Col>
+            <Col md={3} xs={12} className='d-none d-md-block'>
               <p>{research.description}</p>
             </Col>
-            <Col md={2}>
+            <Col md={3} xs={12} className='d-xs-block d-md-none'>
+              <p>Description: {research.description}</p>
+            </Col>
+            <Col md={2} xs={12} className='d-none d-md-block'>
               <p>{research.user?.name}</p>
             </Col>
-            <Col md={2}>{research.createdAt?.substring(0, 10)}</Col>
+            <Col md={2} xs={12} className='d-xs-block d-md-none'>
+              <p>Posted By: {research.user?.name}</p>
+            </Col>
+            <Col md={2} className='d-none d-md-block'>
+              {research.createdAt?.substring(0, 10)}
+            </Col>
+            <Col md={2} xs={12} className='d-xs-block d-md-none'>
+              <p>Date Posted: {research.createdAt?.substring(0, 10)}</p>
+            </Col>
           </Row>
         </Container>
       )}

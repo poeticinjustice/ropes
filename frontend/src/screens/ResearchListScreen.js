@@ -29,22 +29,22 @@ const ResearchListScreen = () => {
         <Container>
           {research.length === 0 && <Message>No Research Posted</Message>}
           <Row>
-            <Col md={2}>
+            <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Person</p>
             </Col>
-            <Col md={2}>
+            <Col md={2} xs={9}>
               <p>Title</p>
             </Col>
-            <Col md={3}>
+            <Col md={3} xs={12} className='d-none d-md-block'>
               <p>Description</p>
             </Col>
-            <Col md={2}>
+            <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Posted By</p>
             </Col>
-            <Col md={2}>
+            <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Date Posted</p>
             </Col>
-            <Col md={1}>
+            <Col md={1} xs={3}>
               <p>View</p>
             </Col>
           </Row>
@@ -53,22 +53,22 @@ const ResearchListScreen = () => {
             .reverse()
             .map((researchData) => (
               <Row key={researchData._id}>
-                <Col md={2}>
+                <Col md={2} xs={12} className='d-none d-md-block'>
                   <p>{researchData.person?.name}</p>
                 </Col>
-                <Col md={2}>
+                <Col md={2} xs={9}>
                   <p>{researchData.title}</p>
                 </Col>
-                <Col md={3}>
+                <Col md={3} xs={12} className='d-none d-md-block'>
                   <p>{researchData.description}</p>
                 </Col>
-                <Col md={2}>
+                <Col md={2} xs={12} className='d-none d-md-block'>
                   <p>{researchData.user?.name}</p>
                 </Col>
-                <Col md={2}>
+                <Col md={2} xs={12} className='d-none d-md-block'>
                   <p>{researchData.createdAt.substring(0, 10)}</p>
                 </Col>
-                <Col md={1}>
+                <Col md={1} xs={3}>
                   <Link to={`/research/${researchData._id}`}>
                     <button>View</button>
                   </Link>

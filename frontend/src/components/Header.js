@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>R.O.P.E.S.</Navbar.Brand>
@@ -28,11 +28,11 @@ const Header = () => {
             <Route render={({ history }) => <SearchBox history={history} />} />
             {userInfo ? (
               <Nav className='ml-auto'>
-                <LinkContainer to='/mypage'>
+                {/* <LinkContainer to='/mypage'>
                   <Nav.Link to='/mypage'>
                     <i className='fas fa-scroll'></i> My Page
                   </Nav.Link>
-                </LinkContainer>
+                </LinkContainer> */}
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>My Profile</NavDropdown.Item>

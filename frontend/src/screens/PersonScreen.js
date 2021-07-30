@@ -97,17 +97,17 @@ const PersonScreen = ({ match }) => {
               ) : (
                 <Container>
                   <Row>
-                    <Col md={4}>
+                    <Col md={4} xs={9}>
                       <p>Title</p>
                     </Col>
-                    <Col md={5}>
+                    <Col md={5} xs={12} className='d-none d-md-block'>
                       <p>Description</p>
                     </Col>
-                    <Col md={2}>
+                    <Col md={2} xs={12} className='d-none d-md-block'>
                       <p>Date Posted</p>
                     </Col>
 
-                    <Col md={1}>
+                    <Col md={1} xs={3}>
                       <p>View</p>
                     </Col>
                   </Row>
@@ -119,16 +119,16 @@ const PersonScreen = ({ match }) => {
                         .reverse()
                         .map((research) => (
                           <Row key={research._id}>
-                            <Col md={4}>
+                            <Col md={4} xs={9}>
                               <p>{research.title}</p>
                             </Col>
-                            <Col md={5}>
+                            <Col md={5} xs={12} className='d-none d-md-block'>
                               <p>{research.description}</p>
                             </Col>
-                            <Col md={2}>
+                            <Col md={2} xs={12} className='d-none d-md-block'>
                               <p>{research.createdAt.substring(0, 10)}</p>
                             </Col>
-                            <Col md={1}>
+                            <Col md={1} xs={3}>
                               <Link to={`/research/${research._id}`}>
                                 <button>View</button>
                               </Link>
