@@ -89,12 +89,6 @@ const PersonScreen = ({ match }) => {
                 <ListGroup.Item>
                   Description: {person.description}
                 </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Research:</Col>
-                    <Col>{person.numResearch}</Col>
-                  </Row>
-                </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col>
@@ -103,15 +97,16 @@ const PersonScreen = ({ match }) => {
               ) : (
                 <Container>
                   <Row>
-                    <Col md={7}>
+                    <Col md={4}>
                       <p>Title</p>
+                    </Col>
+                    <Col md={5}>
+                      <p>Description</p>
                     </Col>
                     <Col md={2}>
                       <p>Date Posted</p>
                     </Col>
-                    <Col md={2}>
-                      <p>User</p>
-                    </Col>
+
                     <Col md={1}>
                       <p>View</p>
                     </Col>
@@ -124,14 +119,14 @@ const PersonScreen = ({ match }) => {
                         .reverse()
                         .map((research) => (
                           <Row key={research._id}>
-                            <Col md={7}>
+                            <Col md={4}>
                               <p>{research.title}</p>
+                            </Col>
+                            <Col md={5}>
+                              <p>{research.description}</p>
                             </Col>
                             <Col md={2}>
                               <p>{research.createdAt.substring(0, 10)}</p>
-                            </Col>
-                            <Col md={2}>
-                              <p>{research.name}</p>
                             </Col>
                             <Col md={1}>
                               <Link to={`/research/${research._id}`}>

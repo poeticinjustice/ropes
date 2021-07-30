@@ -31,14 +31,14 @@ const ResearchScreen = ({ match }) => {
             <Col md={2}>
               <p>Name</p>
             </Col>
-            <Col md={2}>
+            <Col md={3}>
               <p>Title</p>
             </Col>
             <Col md={3}>
               <p>Description</p>
             </Col>
             <Col md={2}>
-              <p>User</p>
+              <p>Created By</p>
             </Col>
             <Col md={2}>
               <p>Date Posted</p>
@@ -52,14 +52,14 @@ const ResearchScreen = ({ match }) => {
                 </Link>
               </p>
             </Col>
-            <Col md={2}>{research.title}</Col>
+            <Col md={3}>{research.title}</Col>
             <Col md={3}>
               <p>{research.description}</p>
             </Col>
             <Col md={2}>
-              <p>{research.description}</p>
+              <p>{research.user?.name}</p>
             </Col>
-            <Col md={2}>{research.createdAt}</Col>
+            <Col md={2}>{research.createdAt?.substring(0, 10)}</Col>
           </Row>
         </Container>
       )}

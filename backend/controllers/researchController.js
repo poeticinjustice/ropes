@@ -23,7 +23,7 @@ const getResearch = asyncHandler(async (req, res) => {
 // @access  Public
 const getResearchById = asyncHandler(async (req, res) => {
   const research = await Research.findById(req.params.id).populate({
-    path: 'person',
+    path: 'person user',
     select: 'name description',
   })
 
