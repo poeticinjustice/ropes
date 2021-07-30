@@ -29,14 +29,17 @@ const ResearchListScreen = () => {
         <Container>
           {research.length === 0 && <Message>No Research Posted</Message>}
           <Row>
-            <Col md={3}>
-              <p>Name</p>
+            <Col md={2}>
+              <p>Person</p>
             </Col>
-            <Col md={3}>
+            <Col md={2}>
               <p>Title</p>
             </Col>
             <Col md={3}>
               <p>Description</p>
+            </Col>
+            <Col md={2}>
+              <p>Posted By</p>
             </Col>
             <Col md={2}>
               <p>Date Posted</p>
@@ -50,14 +53,17 @@ const ResearchListScreen = () => {
             .reverse()
             .map((researchData) => (
               <Row key={researchData._id}>
-                <Col md={3}>
-                  <p>{researchData.person}</p>
+                <Col md={2}>
+                  <p>{researchData.person?.name}</p>
                 </Col>
-                <Col md={3}>
+                <Col md={2}>
                   <p>{researchData.title}</p>
                 </Col>
                 <Col md={3}>
                   <p>{researchData.description}</p>
+                </Col>
+                <Col md={2}>
+                  <p>{researchData.user?.name}</p>
                 </Col>
                 <Col md={2}>
                   <p>{researchData.createdAt.substring(0, 10)}</p>

@@ -9,11 +9,19 @@ import Research from '../models/researchModel.js'
 
 const getResearch = asyncHandler(async (req, res) => {
   if (req.params.personId) {
-    const personResearch = await Research.find({ person: req.params.personId })
+    const personResearch = await Research.find({
+      person: req.params.personId,
+    }).populate({
+      path: 'person user',
+      select: 'name description',
+    })
 
     return res.json(personResearch)
   } else {
-    const research = await Research.find({})
+    const research = await Research.find({}).populate({
+      path: 'person user',
+      select: 'name description',
+    })
     return res.json(research)
   }
 })
