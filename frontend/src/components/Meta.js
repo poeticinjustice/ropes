@@ -12,7 +12,7 @@ const Meta = ({ title, description, keywords }) => {
 }
 
 Meta.defaultProps = {
-  title: 'Welcome To ROPES',
+  title: 'Know the ROPES',
   description: 'We review stances of politicians on the environment',
   keywords: 'environment, politicians',
 }

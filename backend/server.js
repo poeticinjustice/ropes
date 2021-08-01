@@ -11,6 +11,8 @@ import userRoutes from './routes/userRoutes.js'
 import researchRoutes from './routes/researchRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 
+import proPubRoutes from './routes/propubRoutes.js'
+
 dotenv.config()
 
 connectDB()
@@ -27,6 +29,8 @@ app.use('/api/persons', personRoutes)
 app.use('/api/research', researchRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/upload', uploadRoutes)
+
+app.use('/api/propub', proPubRoutes)
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
