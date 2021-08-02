@@ -14,6 +14,7 @@ import ProfileScreen from './screens/ProfileScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import PersonEditScreen from './screens/PersonEditScreen'
+import ProPubScreen from './screens/ProPubScreen'
 import TestScreen from './screens/TestScreen'
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
           <Route path='/' component={HomeScreen} exact />
           <Route path='/research' component={ResearchListScreen} exact />
           <Route path='/test' component={TestScreen} />
+          <Route path='/propub' component={ProPubScreen} />
         </Container>
       </main>
       <Footer />

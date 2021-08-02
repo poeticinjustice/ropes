@@ -23,8 +23,10 @@ import {
   researchDetailsReducer,
   researchCreateReducer,
 } from './reducers/researchReducers'
+import { propubMemberDetailsReducer } from './reducers/propubReducers'
 
 const reducer = combineReducers({
+  propubMemberDetails: propubMemberDetailsReducer,
   personList: personListReducer,
   personDetails: personDetailsReducer,
   personDelete: personDeleteReducer,
