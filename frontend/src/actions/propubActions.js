@@ -10,7 +10,6 @@ export const listPropubMemberDetails = (id) => async (dispatch) => {
     dispatch({ type: PROPUB_DETAILS_REQUEST })
 
     const { data } = await axios.get(`/api/propub/${id}`)
-    // const { data } = await axios.get(`/api/propub/B001277`)
 
     dispatch({
       type: PROPUB_DETAILS_SUCCESS,

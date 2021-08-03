@@ -46,8 +46,8 @@ const App = () => {
           />
           <Route path='/' component={HomeScreen} exact />
           <Route path='/research' component={ResearchListScreen} exact />
-          <Route path='/test' component={TestScreen} />
-          <Route path='/propub' component={ProPubScreen} />
+          <Route path='/test/:id' component={TestScreen} />
+          <Route path='/propub/:id' component={ProPubScreen} />
         </Container>
       </main>
       <Footer />
