@@ -18,9 +18,16 @@ const TestScreen = ({ match }) => {
 
   const stat = member.status
 
-  const memberId = member.results?.map((item, index) => (
-    <p key={index}>{item.id}</p>
+  const memberId = member.results?.map((memberDetail, memberDetailIndex) => (
+    <p key={memberDetailIndex}>{memberDetail.id}</p>
   ))
+
+  const roles = member.results?.map(
+    (memberRoles) =>
+      (memberRoles = memberRoles.roles?.map((memberRole, memberRoleIndex) => (
+        <p key={memberRoleIndex}>{memberRole.congress}</p>
+      )))
+  )
 
   return (
     <>
@@ -35,7 +42,8 @@ const TestScreen = ({ match }) => {
         <Row>
           <Col>
             <h3>status: {stat}</h3>
-            <p>{memberId}</p>
+            {memberId}
+            {roles}
           </Col>
         </Row>
       )}
