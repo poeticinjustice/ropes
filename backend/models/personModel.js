@@ -23,6 +23,9 @@ const personSchema = mongoose.Schema(
     description: {
       type: String,
     },
+    propubId: {
+      type: String,
+    },
     research: [
       {
         type: mongoose.Schema.Types.ObjectId,

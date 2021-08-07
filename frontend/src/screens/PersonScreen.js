@@ -16,6 +16,7 @@ import Meta from '../components/Meta'
 import { listPersonDetails, listPersonResearch } from '../actions/personActions'
 import { createResearch } from '../actions/researchActions'
 import { RESEARCH_CREATE_RESET } from '../constants/researchConstants'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const PersonScreen = ({ match }) => {
   const [title, setTitle] = useState('')
@@ -89,6 +90,11 @@ const PersonScreen = ({ match }) => {
                 <ListGroup.Item>
                   Description: {person.description}
                 </ListGroup.Item>
+                <ListGroup>
+                  <LinkContainer to={`/admin/person/${person._id}/edit`}>
+                    <Button variant='light'>Edit</Button>
+                  </LinkContainer>
+                </ListGroup>
               </ListGroup>
             </Col>
             <Col>
@@ -183,7 +189,7 @@ const PersonScreen = ({ match }) => {
                     </Form>
                   ) : (
                     <Message>
-                      Please <Link to='/login'>sign in</Link> post research{' '}
+                      Please <Link to='/login'>sign in</Link> to post research{' '}
                     </Message>
                   )}
                 </ListGroup.Item>

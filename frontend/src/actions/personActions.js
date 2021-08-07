@@ -165,7 +165,6 @@ export const updatePerson = (person) => async (dispatch, getState) => {
 
     dispatch({
       type: PERSON_UPDATE_SUCCESS,
-      payload: data,
     })
     dispatch({ type: PERSON_DETAILS_SUCCESS, payload: data })
   } catch (error) {

@@ -58,6 +58,7 @@ const deletePerson = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const createPerson = asyncHandler(async (req, res) => {
   const person = new Person({
+    propubId: 'Person ProPublica ID',
     name: 'Person name',
     role: 'Person role',
     user: req.user._id,
@@ -76,11 +77,12 @@ const createPerson = asyncHandler(async (req, res) => {
 // @route   PUT /api/persons/:id
 // @access  Private/Admin
 const updatePerson = asyncHandler(async (req, res) => {
-  const { name, role, description, image, state, party } = req.body
+  const { propubId, name, role, description, image, state, party } = req.body
 
   const person = await Person.findById(req.params.id)
 
   if (person) {
+    person.propubId = propubId
     person.name = name
     person.role = role
     person.description = description
