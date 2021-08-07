@@ -111,7 +111,7 @@ const PersonEditScreen = ({ match, history }) => {
 
   return (
     <>
-      <Link to='/admin/personlist' className='btn btn-light my-3'>
+      <Link to='/personlist' className='btn btn-light my-3'>
         Peeps
       </Link>
       <Row>

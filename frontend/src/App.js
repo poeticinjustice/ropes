@@ -25,17 +25,18 @@ const App = () => {
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
-          <Route path='/person/:id' component={PersonScreen} />
+          <Route path='/person/:id' component={PersonScreen} exact />
           <Route path='/research/:id' component={ResearchScreen} />
+          <Route path='/research' component={ResearchListScreen} exact />
           <Route path='/admin/userList' component={UserListScreen} />
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />{' '}
-          <Route path='/admin/personlist' component={PersonListScreen} exact />
+          <Route path='/personlist' component={PersonListScreen} exact />
           <Route
-            path='/admin/personlist/:pageNumber'
+            path='/personlist/:pageNumber'
             component={PersonListScreen}
             exact
           />
-          <Route path='/admin/person/:id/edit' component={PersonEditScreen} />
+          <Route path='/person/:id/edit' component={PersonEditScreen} />{' '}
           <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
           <Route
@@ -44,7 +45,6 @@ const App = () => {
             exact
           />
           <Route path='/' component={HomeScreen} exact />
-          <Route path='/research' component={ResearchListScreen} exact />
           <Route path='/test/:id' component={TestScreen} />
         </Container>
       </main>

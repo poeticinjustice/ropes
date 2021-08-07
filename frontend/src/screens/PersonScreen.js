@@ -91,8 +91,8 @@ const PersonScreen = ({ match }) => {
                   Description: {person.description}
                 </ListGroup.Item>
                 <ListGroup>
-                  <LinkContainer to={`/admin/person/${person._id}/edit`}>
-                    <Button variant='light'>Edit</Button>
+                  <LinkContainer to={`/person/${person._id}/edit`}>
+                    <Button variant='dark'>Edit</Button>
                   </LinkContainer>
                 </ListGroup>
               </ListGroup>

@@ -42,12 +42,12 @@ const PersonListScreen = ({ history, match }) => {
   useEffect(() => {
     dispatch({ type: PERSON_CREATE_RESET })
 
-    if (!userInfo || !userInfo.isAdmin) {
+    if (!userInfo) {
       history.push('/login')
     }
 
     if (successCreate) {
-      history.push(`/admin/person/${createdPerson._id}/edit`)
+      history.push(`/person/${createdPerson._id}/edit`)
     } else {
       dispatch(listPersons('', pageNumber))
     }
@@ -115,7 +115,7 @@ const PersonListScreen = ({ history, match }) => {
                   <td>{person.role}</td>
                   <td>{person.description}</td>
                   <td>
-                    <LinkContainer to={`/admin/person/${person._id}/edit`}>
+                    <LinkContainer to={`/person/${person._id}/edit`}>
                       <Button variant='light' className='btn-sm'>
                         <i className='fas fa-edit'></i>
                       </Button>

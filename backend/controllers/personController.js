@@ -55,7 +55,7 @@ const deletePerson = asyncHandler(async (req, res) => {
 
 // @desc    Create a person
 // @route   POST /api/persons
-// @access  Private/Admin
+// @access  Private
 const createPerson = asyncHandler(async (req, res) => {
   const person = new Person({
     propubId: 'Person ProPublica ID',
@@ -75,7 +75,7 @@ const createPerson = asyncHandler(async (req, res) => {
 
 // @desc    Update a person
 // @route   PUT /api/persons/:id
-// @access  Private/Admin
+// @access  Private
 const updatePerson = asyncHandler(async (req, res) => {
   const { propubId, name, role, description, image, state, party } = req.body
 
