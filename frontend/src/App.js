@@ -15,6 +15,8 @@ import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import PersonEditScreen from './screens/PersonEditScreen'
 import TestScreen from './screens/TestScreen'
+import PersonUpdateFromPropub from './components/PersonUpdateFromPropub'
+import Propub from './components/Propub'
 
 const App = () => {
   return (
@@ -46,6 +48,8 @@ const App = () => {
           />
           <Route path='/' component={HomeScreen} exact />
           <Route path='/test/:id' component={TestScreen} />
+          <Route path='/pupdate/:id' component={PersonUpdateFromPropub} />
+          <Route path='/propub/:id' component={Propub} />
         </Container>
       </main>
       <Footer />

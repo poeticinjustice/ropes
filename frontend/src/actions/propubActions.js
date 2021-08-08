@@ -5,7 +5,7 @@ import {
   PROPUB_DETAILS_FAIL,
 } from '../constants/propubConstants'
 
-export const listPropubMemberDetails = (id) => async (dispatch) => {
+export const getPropubMemberDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PROPUB_DETAILS_REQUEST })
 

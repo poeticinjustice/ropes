@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listPropubMemberDetails } from '../actions/propubActions'
+import { getPropubMemberDetails } from '../actions/propubActions'
 
 const TestScreen = ({ match }) => {
   const dispatch = useDispatch()
@@ -13,7 +13,7 @@ const TestScreen = ({ match }) => {
   const { loading, error, member } = propubMemberDetails
 
   useEffect(() => {
-    dispatch(listPropubMemberDetails(match.params.id))
+    dispatch(getPropubMemberDetails(match.params.id))
   }, [dispatch, match])
 
   const stat = member.status

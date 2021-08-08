@@ -15,6 +15,9 @@ import {
   PERSON_UPDATE_REQUEST,
   PERSON_UPDATE_SUCCESS,
   PERSON_UPDATE_FAIL,
+  PERSON_UPDATE_FROM_PROPUB_REQUEST,
+  PERSON_UPDATE_FROM_PROPUB_SUCCESS,
+  PERSON_UPDATE_FROM_PROPUB_FAIL,
   PERSON_RESEARCH_LIST_REQUEST,
   PERSON_RESEARCH_LIST_SUCCESS,
   PERSON_RESEARCH_LIST_FAIL,
@@ -181,6 +184,51 @@ export const updatePerson = (person) => async (dispatch, getState) => {
     })
   }
 }
+
+// UPDATEPERSONFROMPROPUB
+
+export const updatePersonFromPropub =
+  (person) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: PERSON_UPDATE_FROM_PROPUB_REQUEST,
+      })
+
+      const {
+        userLogin: { userInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.put(
+        `/api/persons/${person._id}`,
+        person,
+        config
+      )
+
+      dispatch({
+        type: PERSON_UPDATE_FROM_PROPUB_SUCCESS,
+      })
+      dispatch({ type: PERSON_DETAILS_SUCCESS, payload: data })
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      if (message === 'Not authorized, token failed') {
+        dispatch(logout())
+      }
+      dispatch({
+        type: PERSON_UPDATE_FROM_PROPUB_FAIL,
+        payload: message,
+      })
+    }
+  }
 
 export const listPersonResearch = (id) => async (dispatch) => {
   try {

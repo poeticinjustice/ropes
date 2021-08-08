@@ -68,11 +68,11 @@ const PersonEditScreen = ({ match }) => {
         dispatch(listPersonDetails(personId))
       } else {
         setPropubId(person.propubId)
-        setName(memberName)
+        setName(person.name)
         setRole(person.role)
         setImage(person.image)
-        setState(memberState)
-        setParty(memberParty)
+        setState(person.state)
+        setParty(person.party)
         setDescription(person.description)
       }
     }
@@ -131,6 +131,27 @@ const PersonEditScreen = ({ match }) => {
       <Link to={`/person/${person._id}`}>
         <Button className='btn btn-light my-3'>Name: {memberName}</Button>
       </Link>
+      {/* <FormContainer>
+        Enter ProPublica ID and click update below
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant='danger'>{error}</Message>
+        ) : (
+          <>
+            <Form onSubmit={submitHandler}>
+              <Form.Group controlId='propubId'>
+                <Form.Control
+                  type='text'
+                  placeholder='Enter ProPublica ID'
+                  value={propubId}
+                  onChange={(e) => setPropubId(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
+            </Form>
+          </>
+        )}
+      </FormContainer> */}
       <FormContainer>
         <h1>Edit Person</h1>
         {loadingUpdate && <Loader />}
