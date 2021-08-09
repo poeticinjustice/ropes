@@ -25,6 +25,7 @@ const personSchema = mongoose.Schema(
     },
     propubId: {
       type: String,
+      required: true,
     },
     research: [
       {

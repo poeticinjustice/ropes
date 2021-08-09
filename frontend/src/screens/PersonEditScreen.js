@@ -10,8 +10,9 @@ import { listPersonDetails, updatePerson } from '../actions/personActions'
 import { getPropubMemberDetails } from '../actions/propubActions'
 import { PERSON_UPDATE_RESET } from '../constants/personConstants'
 
-const PersonEditScreen = ({ match }) => {
+const Propub = ({ match }) => {
   const personId = match.params.id
+
   const [propubId, setPropubId] = useState('')
   const [name, setName] = useState('')
   const [role, setRole] = useState('')
@@ -34,11 +35,7 @@ const PersonEditScreen = ({ match }) => {
   } = personUpdate
 
   const propubMemberDetails = useSelector((state) => state.propubMemberDetails)
-  const {
-    loading: loadingMember,
-    error: errorMember,
-    member,
-  } = propubMemberDetails
+  const { member } = propubMemberDetails
 
   const memberName = member.results
     ?.map(
@@ -59,6 +56,15 @@ const PersonEditScreen = ({ match }) => {
     ?.map((memberDetail) => memberDetail.current_party)
     .join()
 
+  const memberRole = member.results
+    ?.map(
+      (memberRoles) =>
+        (memberRoles = memberRoles.roles?.map(
+          (memberRole) => memberRole.title
+        ))[0]
+    )
+    .join()
+
   useEffect(() => {
     dispatch(getPropubMemberDetails(person.propubId))
     if (successUpdate) {
@@ -68,11 +74,11 @@ const PersonEditScreen = ({ match }) => {
         dispatch(listPersonDetails(personId))
       } else {
         setPropubId(person.propubId)
-        setName(memberName)
-        setRole(person.role)
+        setName(memberName || person.name)
+        setRole(memberRole || person.role)
         setImage(person.image)
-        setState(memberState)
-        setParty(memberParty)
+        setState(memberState || person.state)
+        setParty(memberParty || person.party)
         setDescription(person.description)
       }
     }
@@ -81,6 +87,7 @@ const PersonEditScreen = ({ match }) => {
     personId,
     person,
     memberName,
+    memberRole,
     memberState,
     memberParty,
     successUpdate,
@@ -109,6 +116,26 @@ const PersonEditScreen = ({ match }) => {
     }
   }
 
+  const propubHandler = (e) => {
+    setPropubId(e.target.value)
+    setName(memberName)
+    setState(memberState)
+    setParty(memberParty)
+    e.preventDefault()
+    dispatch(
+      updatePerson({
+        _id: personId,
+        propubId,
+        name,
+        role,
+        image,
+        state,
+        party,
+        description,
+      })
+    )
+  }
+
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
@@ -121,7 +148,6 @@ const PersonEditScreen = ({ match }) => {
         state,
         party,
         description,
-        uploading,
       })
     )
   }
@@ -129,37 +155,49 @@ const PersonEditScreen = ({ match }) => {
   return (
     <>
       <Link to={`/person/${person._id}`}>
-        <Button className='btn btn-light my-3'>Name: {memberName}</Button>
+        <Button className='btn btn-light my-3'>{memberName}</Button>
       </Link>
+      <Form onSubmit={propubHandler}>
+        <Form.Group controlId='propubId'>
+          <Form.Label>Import from Pro Publica</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Enter ProPub ID'
+            value={propubId}
+            onChange={(e) => setPropubId(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+        <Button type='submit' variant='primary'>
+          Get Data
+        </Button>
+      </Form>
       <FormContainer>
         <h1>Edit Person</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
-        {loadingMember && <Loader />}
-        {errorMember && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
           <Message variant='danger'>{error}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='propubId'>
-              <Form.Label>ProPublica ID</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter ProPublica ID'
-                value={propubId}
-                onChange={(e) => setPropubId(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
             <Form.Group controlId='name'>
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter name'
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setName(e.target.value || memberName)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='role'>
+              <Form.Label>Role</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter role'
+                value={role}
+                onChange={(e) => setRole(memberRole || e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -186,7 +224,7 @@ const PersonEditScreen = ({ match }) => {
                 type='text'
                 placeholder='Enter state'
                 value={state}
-                onChange={(e) => setState(e.target.value)}
+                onChange={(e) => setState(e.target.value || memberState)}
               ></Form.Control>
             </Form.Group>
 
@@ -196,7 +234,7 @@ const PersonEditScreen = ({ match }) => {
                 type='text'
                 placeholder='Enter party'
                 value={party}
-                onChange={(e) => setParty(e.target.value)}
+                onChange={(e) => setParty(e.target.value || memberParty)}
               ></Form.Control>
             </Form.Group>
 
@@ -220,4 +258,4 @@ const PersonEditScreen = ({ match }) => {
   )
 }
 
-export default PersonEditScreen
+export default Propub
