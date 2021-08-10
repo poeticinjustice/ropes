@@ -161,10 +161,12 @@ const Propub = ({ match }) => {
         <Form.Group controlId='propubId'>
           <Form.Label>Import from Pro Publica</Form.Label>
           <Form.Control
+            className='propubform'
             type='text'
             placeholder='Enter ProPub ID'
             value={propubId}
-            onChange={(e) => setPropubId(e.target.value)}
+            onChange={(e) => setPropubId(e.target.value.substring(50, 57))}
+            pattern='[a-zA-Z0-9]+'
           ></Form.Control>
         </Form.Group>
         <Button type='submit' variant='primary'>
