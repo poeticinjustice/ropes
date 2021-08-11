@@ -131,7 +131,6 @@ const Propub = ({ match }) => {
         image,
         state,
         party,
-        description,
       })
     )
   }
@@ -152,6 +151,9 @@ const Propub = ({ match }) => {
     )
   }
 
+  const propubNum = (e) =>
+    setPropubId(e.target.value.split('members/').pop().split('-')[0])
+
   return (
     <>
       <Link to={`/person/${person._id}`}>
@@ -159,13 +161,33 @@ const Propub = ({ match }) => {
       </Link>
       <Form onSubmit={propubHandler}>
         <Form.Group controlId='propubId'>
-          <Form.Label>Import from Pro Publica</Form.Label>
+          <Form.Label>
+            Import from Pro Publica by pasting the link of a{' '}
+            <a
+              href='https://projects.propublica.org/represent/members/117/senate'
+              target='_blank'
+              rel='noreferrer noopener'
+            >
+              {' '}
+              Senator
+            </a>{' '}
+            or{' '}
+            <a
+              href='https://projects.propublica.org/represent/members/117/house'
+              target='_blank'
+              rel='noreferrer noopener'
+            >
+              {' '}
+              House Member
+            </a>
+            . Or just update with your custom data below.
+          </Form.Label>
           <Form.Control
             className='propubform'
             type='text'
             placeholder='Enter ProPub ID'
             value={propubId}
-            onChange={(e) => setPropubId(e.target.value.substring(50, 57))}
+            onChange={propubNum}
             pattern='[a-zA-Z0-9]+'
           ></Form.Control>
         </Form.Group>
@@ -250,7 +272,7 @@ const Propub = ({ match }) => {
               ></Form.Control>
             </Form.Group>
 
-            <Button type='submit' variant='primary'>
+            <Button type='submit' variant='primary' formaction='2'>
               Update
             </Button>
           </Form>
