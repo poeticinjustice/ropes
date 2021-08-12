@@ -14,6 +14,10 @@ const researchSchema = mongoose.Schema(
     description: {
       type: String,
     },
+    link: { type: String },
+    image: {
+      type: String,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

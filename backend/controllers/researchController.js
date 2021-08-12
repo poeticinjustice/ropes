@@ -65,4 +65,47 @@ const createResearch = asyncHandler(async (req, res) => {
   })
 })
 
-export { getResearch, getResearchById, createResearch }
+// @desc    Update research
+// @route   PUT /api/research/:id
+// @access  Private
+const updateResearch = asyncHandler(async (req, res) => {
+  const { title, description, link, image } = req.body
+
+  const research = await Research.findById(req.params.id)
+
+  if (research) {
+    research.title = title
+    research.description = description
+    research.link = link
+    research.image = image
+
+    const updatedResearch = await research.save()
+    res.json(updatedResearch)
+  } else {
+    res.status(404)
+    throw new Error('Research post not found')
+  }
+})
+
+// @desc    Delete research
+// @route   DELETE api/research/:id
+// @access  Private/Admin
+const deleteResearch = asyncHandler(async (req, res) => {
+  const research = await Research.findById(req.params.id)
+
+  if (research) {
+    await research.remove()
+    res.json({ message: 'Research removed' })
+  } else {
+    res.status(404)
+    throw new Error('Research not found')
+  }
+})
+
+export {
+  getResearch,
+  getResearchById,
+  createResearch,
+  updateResearch,
+  deleteResearch,
+}

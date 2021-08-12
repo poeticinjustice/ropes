@@ -14,9 +14,8 @@ import ProfileScreen from './screens/ProfileScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import PersonEditScreen from './screens/PersonEditScreen'
+import ResearchEditScreen from './screens/ResearchEditScreen'
 import TestScreen from './screens/TestScreen'
-import PersonUpdateFromPropub from './components/PersonUpdateFromPropub'
-import Propub from './components/Propub'
 
 const App = () => {
   return (
@@ -28,7 +27,7 @@ const App = () => {
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/person/:id' component={PersonScreen} exact />
-          <Route path='/research/:id' component={ResearchScreen} />
+          <Route path='/research/:id' component={ResearchScreen} exact />
           <Route path='/research' component={ResearchListScreen} exact />
           <Route path='/admin/userList' component={UserListScreen} />
           <Route path='/admin/user/:id/edit' component={UserEditScreen} />{' '}
@@ -39,6 +38,7 @@ const App = () => {
             exact
           />
           <Route path='/person/:id/edit' component={PersonEditScreen} />{' '}
+          <Route path='/research/:id/edit' component={ResearchEditScreen} />{' '}
           <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
           <Route
@@ -48,8 +48,6 @@ const App = () => {
           />
           <Route path='/' component={HomeScreen} exact />
           <Route path='/test/:id' component={TestScreen} />
-          <Route path='/pupdate/:id' component={PersonUpdateFromPropub} />
-          <Route path='/propub/:id' component={Propub} />
         </Container>
       </main>
       <Footer />

@@ -23,6 +23,8 @@ import {
   researchListReducer,
   researchDetailsReducer,
   researchCreateReducer,
+  researchUpdateReducer,
+  researchDeleteReducer,
 } from './reducers/researchReducers'
 import { propubMemberDetailsReducer } from './reducers/propubReducers'
 
@@ -38,6 +40,8 @@ const reducer = combineReducers({
   researchCreate: researchCreateReducer,
   researchList: researchListReducer,
   researchDetails: researchDetailsReducer,
+  researchUpdate: researchUpdateReducer,
+  researchDelete: researchDeleteReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,

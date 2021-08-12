@@ -10,7 +10,7 @@ import { listPersonDetails, updatePerson } from '../actions/personActions'
 import { getPropubMemberDetails } from '../actions/propubActions'
 import { PERSON_UPDATE_RESET } from '../constants/personConstants'
 
-const Propub = ({ match }) => {
+const PersonEditScreen = ({ match }) => {
   const personId = match.params.id
 
   const [propubId, setPropubId] = useState('')
@@ -64,6 +64,8 @@ const Propub = ({ match }) => {
         ))[0]
     )
     .join()
+
+  // const memberImage = `https://theunitedstates.io/images/congress/225x275/${propubId}.jpg`
 
   useEffect(() => {
     dispatch(getPropubMemberDetails(person.propubId))
@@ -154,10 +156,12 @@ const Propub = ({ match }) => {
   const propubNum = (e) =>
     setPropubId(e.target.value.split('members/').pop().split('-')[0])
 
+  const tempImage = `https://theunitedstates.io/images/congress/225x275/${propubId}.jpg`
+
   return (
     <>
       <Link to={`/person/${person._id}`}>
-        <Button className='btn btn-light my-3'>{memberName}</Button>
+        <Button className='btn btn-light my-3'>{name}</Button>
       </Link>
       <Form onSubmit={propubHandler}>
         <Form.Group controlId='propubId'>
@@ -211,7 +215,7 @@ const Propub = ({ match }) => {
                 type='text'
                 placeholder='Enter name'
                 value={name}
-                onChange={(e) => setName(e.target.value || memberName)}
+                onChange={(e) => setName(memberName || e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -231,7 +235,7 @@ const Propub = ({ match }) => {
                 type='text'
                 placeholder='Enter image url'
                 value={image}
-                onChange={(e) => setImage(e.target.value)}
+                onChange={(e) => setImage(tempImage || e.target.value)}
               ></Form.Control>
               <Form.File
                 id='image-file'
@@ -248,7 +252,7 @@ const Propub = ({ match }) => {
                 type='text'
                 placeholder='Enter state'
                 value={state}
-                onChange={(e) => setState(e.target.value || memberState)}
+                onChange={(e) => setState(memberState || e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -258,7 +262,7 @@ const Propub = ({ match }) => {
                 type='text'
                 placeholder='Enter party'
                 value={party}
-                onChange={(e) => setParty(e.target.value || memberParty)}
+                onChange={(e) => setParty(memberParty || e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -282,4 +286,4 @@ const Propub = ({ match }) => {
   )
 }
 
-export default Propub
+export default PersonEditScreen

@@ -9,6 +9,12 @@ import {
   RESEARCH_CREATE_REQUEST,
   RESEARCH_CREATE_SUCCESS,
   RESEARCH_CREATE_FAIL,
+  RESEARCH_UPDATE_REQUEST,
+  RESEARCH_UPDATE_SUCCESS,
+  RESEARCH_UPDATE_FAIL,
+  RESEARCH_DELETE_SUCCESS,
+  RESEARCH_DELETE_REQUEST,
+  RESEARCH_DELETE_FAIL,
 } from '../constants/researchConstants'
 import { logout } from './userActions'
 
@@ -91,3 +97,81 @@ export const createResearch =
       })
     }
   }
+
+export const updateResearch = (research) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: RESEARCH_UPDATE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(
+      `/api/research/${research._id}`,
+      research,
+      config
+    )
+
+    dispatch({
+      type: RESEARCH_UPDATE_SUCCESS,
+    })
+    dispatch({ type: RESEARCH_DETAILS_SUCCESS, payload: data })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: RESEARCH_UPDATE_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const deleteResearch = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: RESEARCH_DELETE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.delete(`/api/research/${id}`, config)
+
+    dispatch({
+      type: RESEARCH_DELETE_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: RESEARCH_DELETE_FAIL,
+      payload: message,
+    })
+  }
+}
