@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Person from '../models/personModel.js'
+import randomstring from 'randomstring'
 
 // @desc    Fetch all persons
 // @route   GET /api/persons
@@ -10,10 +11,12 @@ const getPersons = asyncHandler(async (req, res) => {
 
   const keyword = req.query.keyword
     ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
+        $or: [
+          { first_name: { $regex: req.query.keyword, $options: 'i' } },
+          { last_name: { $regex: req.query.keyword, $options: 'i' } },
+          { description: { $regex: req.query.keyword, $options: 'i' } },
+          { title: { $regex: req.query.keyword, $options: 'i' } },
+        ],
       }
     : {}
 
@@ -58,15 +61,16 @@ const deletePerson = asyncHandler(async (req, res) => {
 // @access  Private
 const createPerson = asyncHandler(async (req, res) => {
   const person = new Person({
-    propubId: 'Person ProPublica ID',
-    name: 'Person name',
-    role: 'Person role',
+    propub_id: randomstring.generate(7),
     user: req.user._id,
+    first_name: 'First name',
+    last_name: 'Last name',
+    title: 'title',
     image: '/images/sample.jpg',
-    state: 'Person state',
-    party: 'Person party',
+    state: 'state',
+    party: 'party',
     numResearch: 0,
-    description: 'Person description',
+    description: 'description',
   })
 
   const createdPerson = await person.save()
@@ -77,14 +81,24 @@ const createPerson = asyncHandler(async (req, res) => {
 // @route   PUT /api/persons/:id
 // @access  Private
 const updatePerson = asyncHandler(async (req, res) => {
-  const { propubId, name, role, description, image, state, party } = req.body
+  const {
+    propub_id,
+    first_name,
+    last_name,
+    title,
+    description,
+    image,
+    state,
+    party,
+  } = req.body
 
   const person = await Person.findById(req.params.id)
 
   if (person) {
-    person.propubId = propubId
-    person.name = name
-    person.role = role
+    person.propub_id = propub_id
+    person.first_name = first_name
+    person.last_name = last_name
+    person.title = title
     person.description = description
     person.image = image
     person.state = state

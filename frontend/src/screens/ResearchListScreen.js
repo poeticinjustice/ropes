@@ -69,25 +69,25 @@ const ResearchListScreen = () => {
           {research
             .slice(0)
             .reverse()
-            .map((researchData) => (
-              <Row key={researchData._id}>
+            .map((research) => (
+              <Row key={research._id}>
                 <Col md={2} xs={12} className='d-none d-md-block'>
-                  <p>{researchData.person?.name}</p>
+                  <p>{research.person?.name}</p>
                 </Col>
                 <Col md={2} xs={9}>
-                  <p>{researchData.title}</p>
+                  <p>{research.title}</p>
                 </Col>
                 <Col md={2} xs={12} className='d-none d-md-block'>
-                  <p>{researchData.description}</p>
+                  <p>{research.description}</p>
                 </Col>
                 <Col md={2} xs={12} className='d-none d-md-block'>
-                  <p>{researchData.user?.name}</p>
+                  <p>{research.user?.name}</p>
                 </Col>
                 <Col md={2} xs={12} className='d-none d-md-block'>
-                  <p>{researchData.createdAt.substring(0, 10)}</p>
+                  <p>{research.createdAt.substring(0, 10)}</p>
                 </Col>
                 <Col md={1} xs={3}>
-                  <Link to={`/research/${researchData._id}`}>
+                  <Link to={`/research/${research._id}`}>
                     <button>View</button>
                   </Link>
                 </Col>
@@ -95,7 +95,7 @@ const ResearchListScreen = () => {
                   <Button
                     variant='danger'
                     className='btn-sm'
-                    onClick={() => deleteHandler(researchData._id)}
+                    onClick={() => deleteHandler(research._id)}
                   >
                     <i className='fas fa-trash'></i>
                   </Button>

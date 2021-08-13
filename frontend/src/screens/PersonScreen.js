@@ -38,6 +38,8 @@ const PersonScreen = ({ match }) => {
 
   const noResearch = personResearch.length === 0
 
+  const image = `https://theunitedstates.io/images/congress/225x275/${person.propub_id}.jpg`
+
   useEffect(() => {
     if (person._id) {
       dispatch(listPersonResearch(match.params.id))
@@ -46,7 +48,7 @@ const PersonScreen = ({ match }) => {
     if (successResearch) {
       setTitle('')
       setDescription('')
-      dispatch(listPersonDetails(match.params.id))
+      dispatch({ type: RESEARCH_CREATE_RESET })
     }
     if (!person._id || person._id !== match.params.id) {
       dispatch(listPersonDetails(match.params.id))
@@ -79,10 +81,10 @@ const PersonScreen = ({ match }) => {
         <>
           <Row>
             <Col md={3}>
-              <Image src={person.image} alt={person.name} fluid />
+              <Image src={image} alt={person.name} fluid />
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  <h3>{person.name}</h3>
+                  <h3>{`${person.first_name} ${person.last_name}`}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   {person.party} from {person.state}

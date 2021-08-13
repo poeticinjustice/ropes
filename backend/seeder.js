@@ -2,7 +2,8 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import users from './data/users.js'
-import persons from './data/persons.js'
+// import persons from './data/persons.js'
+import members from './data/senate117.js'
 import User from './models/userModel.js'
 import Person from './models/personModel.js'
 import Research from './models/researchModel.js'
@@ -17,18 +18,18 @@ const importData = async () => {
   try {
     await User.deleteMany()
     await Person.deleteMany()
-    await Research.deleteMany()
-    await Comment.deleteMany()
+    // await Research.deleteMany()
+    // await Comment.deleteMany()
 
     const createdUsers = await User.insertMany(users)
 
     const adminUser = createdUsers[0]._id
 
-    const samplePersons = persons.map((person) => {
-      return { ...person, user: adminUser }
+    const senateMembers = members.map((member) => {
+      return { ...member, user: adminUser }
     })
 
-    await Person.insertMany(samplePersons)
+    await Person.insertMany(senateMembers)
 
     console.log('Data Imported!'.green.inverse)
     process.exit()
