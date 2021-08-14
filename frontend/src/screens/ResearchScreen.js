@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Table, Image, Button } from 'react-bootstrap'
+import { Image, Button, Row, Col } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -28,25 +28,45 @@ const ResearchScreen = ({ match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <Table>
-            <tr>
-              <td className='d-none d-md-block'>
-                Name: {research?.person?.name}
-              </td>
-              <td className='d-none d-md-block'>Title: {research.title}</td>
-              <td className='d-none d-md-block'>
-                Description: {research.description}
-              </td>
+          <Row>
+            <Col md={6}>
               <Image src={research.image} alt={research.title} fluid />
-              <td className='d-none d-md-block'>Link: {research.link}</td>
-              <td className='d-none d-md-block'>
-                Posted By: {research.user?.name}
-              </td>
-              <td className='d-none d-md-block'>
-                <p>Date Posted: {research.createdAt?.substring(0, 10)}d</p>
-              </td>
-            </tr>{' '}
-          </Table>
+            </Col>
+            <Col md={6}>
+              <Row>
+                <Col className='d-none d-md-block'>
+                  Name: {research.person?.first_name}{' '}
+                  {research.person?.last_name}
+                </Col>
+              </Row>
+              <Row>
+                <Col className='d-none d-md-block'>Title: {research.title}</Col>
+              </Row>
+              <Row>
+                <Col className='d-none d-md-block'>
+                  Description: {research.description}
+                </Col>
+              </Row>
+              <Row>
+                <Col className='d-none d-md-block'>
+                  Link:{' '}
+                  <a href={research.link} target='_blank' rel='noreferrer'>
+                    {research?.link?.split('http://').pop()}
+                  </a>
+                </Col>
+              </Row>
+              <Row>
+                <Col className='d-none d-md-block'>
+                  Posted By: {research.user?.name}
+                </Col>
+              </Row>
+              <Row>
+                <Col className='d-none d-md-block'>
+                  Date Posted: {research.createdAt?.substring(0, 10)}
+                </Col>
+              </Row>
+            </Col>
+          </Row>
           <LinkContainer to={`/person/${research?.person?._id}`}>
             <Button variant='dark'>Person</Button>
           </LinkContainer>

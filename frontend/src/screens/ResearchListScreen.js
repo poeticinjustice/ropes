@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Image, Container, Row, Col, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -45,14 +45,15 @@ const ResearchListScreen = () => {
           {research.length === 0 && <Message>No Research Posted</Message>}
           <Row>
             <Col md={2} xs={12} className='d-none d-md-block'>
+              <p>Image</p>
+            </Col>
+            <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Person</p>
             </Col>
             <Col md={2} xs={9}>
               <p>Title</p>
             </Col>
-            <Col md={2} xs={12} className='d-none d-md-block'>
-              <p>Description</p>
-            </Col>
+
             <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Posted By</p>
             </Col>
@@ -72,14 +73,17 @@ const ResearchListScreen = () => {
             .map((research) => (
               <Row key={research._id}>
                 <Col md={2} xs={12} className='d-none d-md-block'>
-                  <p>{research.person?.name}</p>
+                  {<Image src={research.image} alt={research.title} fluid />}
+                </Col>
+                <Col md={2} xs={12} className='d-none d-md-block'>
+                  <p>
+                    {research.person?.first_name} {research.person?.last_name}
+                  </p>
                 </Col>
                 <Col md={2} xs={9}>
                   <p>{research.title}</p>
                 </Col>
-                <Col md={2} xs={12} className='d-none d-md-block'>
-                  <p>{research.description}</p>
-                </Col>
+
                 <Col md={2} xs={12} className='d-none d-md-block'>
                   <p>{research.user?.name}</p>
                 </Col>

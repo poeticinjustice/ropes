@@ -99,7 +99,7 @@ const PersonListScreen = ({ history, match }) => {
                 <th>NAME</th>
                 <th>STATE</th>
                 <th>PARTY</th>
-                <th>ROLE</th>
+                <th>TITLE</th>
                 <th>DESCRIPTION</th>
                 <th></th>
               </tr>
@@ -108,11 +108,13 @@ const PersonListScreen = ({ history, match }) => {
               {persons.map((person) => (
                 <tr key={person._id}>
                   <td>
-                    <Link to={`/person/${person._id}`}>{person.name}</Link>
+                    <Link to={`/person/${person._id}`}>
+                      {person.first_name} {person.last_name}
+                    </Link>
                   </td>
                   <td>{person.state}</td>
                   <td>{person.party}</td>
-                  <td>{person.role}</td>
+                  <td>{person.title}</td>
                   <td>{person.description}</td>
                   <td>
                     <LinkContainer to={`/person/${person._id}/edit`}>

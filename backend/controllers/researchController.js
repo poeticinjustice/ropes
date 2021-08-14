@@ -13,14 +13,14 @@ const getResearch = asyncHandler(async (req, res) => {
       person: req.params.personId,
     }).populate({
       path: 'person user',
-      select: 'name description',
+      select: 'name first_name last_name description',
     })
 
     return res.json(personResearch)
   } else {
     const research = await Research.find({}).populate({
       path: 'person user',
-      select: 'name description',
+      select: 'name first_name last_name description',
     })
     return res.json(research)
   }
@@ -32,7 +32,7 @@ const getResearch = asyncHandler(async (req, res) => {
 const getResearchById = asyncHandler(async (req, res) => {
   const research = await Research.findById(req.params.id).populate({
     path: 'person user',
-    select: 'name description',
+    select: 'name first_name last_name description',
   })
 
   if (!research) {
