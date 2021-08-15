@@ -34,6 +34,13 @@ const ProfileScreen = ({ match, history }) => {
   const userResearchList = useSelector((state) => state.userResearchList)
   const { userResearch } = userResearchList
 
+  const researchDelete = useSelector((state) => state.researchDelete)
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = researchDelete
+
   const noResearch = userResearch.length === 0
 
   const submitHandler = (e) => {
@@ -67,7 +74,7 @@ const ProfileScreen = ({ match, history }) => {
         setEmail(user.email)
       }
     }
-  }, [dispatch, match, history, userInfo, user, success])
+  }, [dispatch, match, history, userInfo, user, success, successDelete])
 
   return (
     <Row>
@@ -76,6 +83,8 @@ const ProfileScreen = ({ match, history }) => {
         {message && <Message variant='danger'>{message}</Message>}
         {}
         {success && <Message variant='success'>Profile Updated</Message>}
+        {loadingDelete && <Loader />}
+        {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
