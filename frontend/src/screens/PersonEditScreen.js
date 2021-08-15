@@ -206,7 +206,7 @@ const PersonEditScreen = ({ match }) => {
             placeholder='Enter ProPublica ID'
             value={propub_id}
             onChange={propubNum}
-            pattern='[a-zA-Z0-9]{7}$'
+            pattern='[a-zA-Z0-9]+'
           ></Form.Control>
         </Form.Group>
         <Button type='submit' variant='primary'>

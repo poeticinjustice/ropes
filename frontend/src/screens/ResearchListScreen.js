@@ -71,9 +71,24 @@ const ResearchListScreen = () => {
             .slice(0)
             .reverse()
             .map((research) => (
-              <Row key={research._id}>
+              <Row key={research._id} className='research-list'>
                 <Col md={2} xs={12} className='d-none d-md-block'>
-                  {<Image src={research.image} alt={research.title} fluid />}
+                  {
+                    <Image
+                      src={
+                        research.image
+                          ? research.image
+                          : 'https://ropesapp.herokuapp.com/uploads/image-1628984002290.jpg'
+                      }
+                      onError={(e) => {
+                        e.target.onerror = null
+                        e.target.src =
+                          'https://ropesapp.herokuapp.com/uploads/image-1628984002290.jpg'
+                      }}
+                      alt={research.title}
+                      fluid
+                    />
+                  }
                 </Col>
                 <Col md={2} xs={12} className='d-none d-md-block'>
                   <p>

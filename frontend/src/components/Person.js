@@ -8,6 +8,11 @@ const Person = ({ person }) => {
       <Link to={`/person/${person._id}`}>
         <Card.Img
           src={`https://theunitedstates.io/images/congress/225x275/${person.propub_id}.jpg`}
+          onError={(e) => {
+            e.target.onerror = null
+            e.target.src =
+              'https://ropesapp.herokuapp.com/uploads/image-1628982927716.png'
+          }}
           variant='top'
         />
       </Link>
@@ -28,12 +33,6 @@ const Person = ({ person }) => {
         <Card.Text as='div'>
           <div>{person.role}</div>
           <div className='my-3'>{person.title}</div>
-        </Card.Text>
-        <Card.Text as='div'>
-          {/* <div className='my-3'>
-            Research:{' '}
-            {(person.research.length === 0 && 'None') || person.research.length}
-          </div> */}
         </Card.Text>
       </Card.Body>
     </Card>

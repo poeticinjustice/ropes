@@ -38,8 +38,6 @@ const PersonScreen = ({ match }) => {
 
   const noResearch = personResearch.length === 0
 
-  const image = `https://theunitedstates.io/images/congress/225x275/${person.propub_id}.jpg`
-
   useEffect(() => {
     if (person._id) {
       dispatch(listPersonResearch(match.params.id))
@@ -81,7 +79,16 @@ const PersonScreen = ({ match }) => {
         <>
           <Row>
             <Col md={3}>
-              <Image src={image} alt={person.name} fluid />
+              <Image
+                src={`https://theunitedstates.io/images/congress/225x275/${person.propub_id}.jpg`}
+                onError={(e) => {
+                  e.target.onerror = null
+                  e.target.src =
+                    'https://ropesapp.herokuapp.com/uploads/image-1628982927716.png'
+                }}
+                alt={person.name}
+                fluid
+              />
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <h3>{`${person.first_name} ${person.last_name}`}</h3>
@@ -185,6 +192,7 @@ const PersonScreen = ({ match }) => {
                           onChange={(e) => setDescription(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
+
                       <Button type='submit' variant='primary'>
                         Submit
                       </Button>

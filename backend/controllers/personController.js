@@ -1,6 +1,5 @@
 import asyncHandler from 'express-async-handler'
 import Person from '../models/personModel.js'
-import randomstring from 'randomstring'
 
 // @desc    Fetch all persons
 // @route   GET /api/persons
@@ -61,12 +60,12 @@ const deletePerson = asyncHandler(async (req, res) => {
 // @access  Private
 const createPerson = asyncHandler(async (req, res) => {
   const person = new Person({
-    propub_id: randomstring.generate(7),
+    propub_id: 'custom',
     user: req.user._id,
     first_name: 'First name',
     last_name: 'Last name',
     title: 'title',
-    image: '/images/sample.jpg',
+    image: 'https://ropesapp.herokuapp.com/uploads/image-1628982927716.png',
     state: 'state',
     party: 'party',
     numResearch: 0,

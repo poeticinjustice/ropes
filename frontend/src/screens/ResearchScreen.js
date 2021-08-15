@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Image, Button, Row, Col } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import { Image, Row, Col } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listResearchDetails } from '../actions/researchActions'
@@ -19,8 +18,11 @@ const ResearchScreen = ({ match }) => {
 
   return (
     <>
-      <Link className='btn btn-light my-3' to='/research'>
-        All Research
+      <Link
+        className='btn btn-light my-3'
+        to={`/person/${research?.person?._id}`}
+      >
+        {research?.person?.first_name} {research?.person?.last_name}
       </Link>
       {loading ? (
         <Loader />
@@ -30,7 +32,20 @@ const ResearchScreen = ({ match }) => {
         <>
           <Row>
             <Col md={6}>
-              <Image src={research.image} alt={research.title} fluid />
+              <Image
+                src={
+                  research.image
+                    ? research.image
+                    : 'https://ropesapp.herokuapp.com/uploads/image-1628984002290.jpg'
+                }
+                onError={(e) => {
+                  e.target.onerror = null
+                  e.target.src =
+                    'https://ropesapp.herokuapp.com/uploads/image-1628984002290.jpg'
+                }}
+                alt={research.title}
+                fluid
+              />
             </Col>
             <Col md={6}>
               <Row>
@@ -67,12 +82,13 @@ const ResearchScreen = ({ match }) => {
               </Row>
             </Col>
           </Row>
-          <LinkContainer to={`/person/${research?.person?._id}`}>
-            <Button variant='dark'>Person</Button>
-          </LinkContainer>
-          <LinkContainer to={`/research/${research._id}/edit`}>
-            <Button variant='dark'>Edit</Button>
-          </LinkContainer>
+
+          <Link
+            className='btn btn-light my-3'
+            to={`/research/${research._id}/edit`}
+          >
+            Edit
+          </Link>
         </>
       )}
     </>
