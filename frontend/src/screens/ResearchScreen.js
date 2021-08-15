@@ -36,12 +36,11 @@ const ResearchScreen = ({ match }) => {
                 src={
                   research.image
                     ? research.image
-                    : 'https://ropesapp.herokuapp.com/uploads/image-1628984002290.jpg'
+                    : 'https://i.ibb.co/1TZRzcD/research-stock.jpg'
                 }
                 onError={(e) => {
                   e.target.onerror = null
-                  e.target.src =
-                    'https://ropesapp.herokuapp.com/uploads/image-1628984002290.jpg'
+                  e.target.src = 'https://i.ibb.co/1TZRzcD/research-stock.jpg'
                 }}
                 alt={research.title}
                 fluid

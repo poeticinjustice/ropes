@@ -10,8 +10,7 @@ const Person = ({ person }) => {
           src={`https://theunitedstates.io/images/congress/225x275/${person.propub_id}.jpg`}
           onError={(e) => {
             e.target.onerror = null
-            e.target.src =
-              'https://ropesapp.herokuapp.com/uploads/image-1628982927716.png'
+            e.target.src = 'https://i.ibb.co/mcfZy9X/headshot-silhouette.jpg'
           }}
           variant='top'
         />

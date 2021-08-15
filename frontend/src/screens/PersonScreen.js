@@ -83,7 +83,7 @@ const PersonScreen = ({ match }) => {
                 onError={(e) => {
                   e.target.onerror = null
                   e.target.src =
-                    'https://ropesapp.herokuapp.com/uploads/image-1628982927716.png'
+                    'https://i.ibb.co/mcfZy9X/headshot-silhouette.jpg'
                 }}
                 alt={person.name}
                 fluid

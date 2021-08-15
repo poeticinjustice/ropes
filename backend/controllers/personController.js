@@ -65,7 +65,7 @@ const createPerson = asyncHandler(async (req, res) => {
     first_name: 'First name',
     last_name: 'Last name',
     title: 'title',
-    image: 'https://ropesapp.herokuapp.com/uploads/image-1628982927716.png',
+    image: 'https://i.ibb.co/mcfZy9X/headshot-silhouette.jpg',
     state: 'state',
     party: 'party',
     numResearch: 0,

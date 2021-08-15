@@ -25,7 +25,7 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
-      <h1>Latest Research</h1>
+      <h1>Senators</h1>
       {loading ? (
         <Loader />
       ) : error ? (
