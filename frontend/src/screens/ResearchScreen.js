@@ -49,29 +49,41 @@ const ResearchScreen = ({ match }) => {
             <Col md={6} xs={12}>
               <Row>
                 <Col>
-                  Name: {research.person?.first_name}{' '}
-                  {research.person?.last_name}
+                  <p>
+                    Name: {research.person?.first_name}{' '}
+                    {research.person?.last_name}
+                  </p>
                 </Col>
-              </Row>
-              <Row>
-                <Col>Title: {research.title}</Col>
-              </Row>
-              <Row>
-                <Col>Description: {research.description}</Col>
               </Row>
               <Row>
                 <Col>
-                  Link:{' '}
-                  <a href={research.link} target='_blank' rel='noreferrer'>
-                    {research?.link?.split('http://').pop()}
-                  </a>
+                  <p>Title: {research.title}</p>
                 </Col>
               </Row>
               <Row>
-                <Col>Posted By: {research.user?.name}</Col>
+                <Col>
+                  <p>Description: {research.description}</p>
+                </Col>
               </Row>
               <Row>
-                <Col>Date Posted: {research.createdAt?.substring(0, 10)}</Col>
+                <Col>
+                  <p>
+                    Link:{' '}
+                    <a href={research.link} target='_blank' rel='noreferrer'>
+                      {research?.link?.split('http://').pop()}
+                    </a>
+                  </p>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p>Posted By: {research.user?.name}</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <p>Date Posted: {research.createdAt?.substring(0, 10)}</p>
+                </Col>
               </Row>
             </Col>
           </Row>
