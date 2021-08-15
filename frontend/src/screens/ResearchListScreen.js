@@ -50,7 +50,7 @@ const ResearchListScreen = () => {
             <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Person</p>
             </Col>
-            <Col md={2} xs={9}>
+            <Col md={2} xs={6}>
               <p>Title</p>
             </Col>
 
@@ -60,7 +60,7 @@ const ResearchListScreen = () => {
             <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Date Posted</p>
             </Col>
-            <Col md={2} xs={3}>
+            <Col md={2} xs={6}>
               <p>View/Edit/Delete</p>
             </Col>
           </Row>
@@ -95,7 +95,7 @@ const ResearchListScreen = () => {
                     </Link>
                   </p>
                 </Col>
-                <Col md={2} xs={9}>
+                <Col md={2} xs={6}>
                   <p>{research.title}</p>
                 </Col>
 
@@ -105,7 +105,7 @@ const ResearchListScreen = () => {
                 <Col md={2} xs={12} className='d-none d-md-block'>
                   <p>{research.createdAt.substring(0, 10)}</p>
                 </Col>
-                <Col md={2} xs={3}>
+                <Col md={2} xs={6}>
                   <Link
                     to={`/research/${research._id}`}
                     className='btn-sm btn btn-info'

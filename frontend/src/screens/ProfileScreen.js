@@ -144,14 +144,14 @@ const ProfileScreen = ({ match, history }) => {
         ) : (
           <Container>
             <Row>
-              <Col md={5} xs={12}>
+              <Col md={5} xs={6}>
                 <p>Title</p>
               </Col>
               <Col md={3} xs={12} className='d-none d-md-block'>
                 <p>Date Posted</p>
               </Col>
 
-              <Col md={4} xs={12}>
+              <Col md={4} xs={6}>
                 <p>View/Edit/delete</p>
               </Col>
             </Row>
@@ -160,13 +160,13 @@ const ProfileScreen = ({ match, history }) => {
               <Col>
                 {userResearch.map((research) => (
                   <Row key={research._id}>
-                    <Col md={5} xs={12}>
+                    <Col md={5} xs={6}>
                       <p>{research.title}</p>
                     </Col>
                     <Col md={3} xs={12} className='d-none d-md-block'>
                       <p>{research.createdAt.substring(0, 10)}</p>
                     </Col>
-                    <Col md={4} xs={12}>
+                    <Col md={4} xs={6}>
                       <Link
                         to={`/research/${research._id}`}
                         className='btn-sm btn btn-info'

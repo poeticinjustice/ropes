@@ -122,7 +122,7 @@ const PersonScreen = ({ match, history }) => {
               ) : (
                 <Container>
                   <Row>
-                    <Col md={4} xs={8}>
+                    <Col md={4} xs={6}>
                       <p>Title</p>
                     </Col>
                     <Col md={4} xs={12} className='d-none d-md-block'>
@@ -132,7 +132,7 @@ const PersonScreen = ({ match, history }) => {
                       <p>Date Posted</p>
                     </Col>
 
-                    <Col md={2} xs={4}>
+                    <Col md={2} xs={6}>
                       <p>View/Edit</p>
                     </Col>
                   </Row>

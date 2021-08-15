@@ -31,7 +31,7 @@ const ResearchScreen = ({ match }) => {
       ) : (
         <>
           <Row>
-            <Col md={6}>
+            <Col md={6} xs={12}>
               <Image
                 src={
                   research.image
@@ -46,23 +46,21 @@ const ResearchScreen = ({ match }) => {
                 fluid
               />
             </Col>
-            <Col md={6}>
+            <Col md={6} xs={12}>
               <Row>
-                <Col className='d-none d-md-block'>
+                <Col>
                   Name: {research.person?.first_name}{' '}
                   {research.person?.last_name}
                 </Col>
               </Row>
               <Row>
-                <Col className='d-none d-md-block'>Title: {research.title}</Col>
+                <Col>Title: {research.title}</Col>
               </Row>
               <Row>
-                <Col className='d-none d-md-block'>
-                  Description: {research.description}
-                </Col>
+                <Col>Description: {research.description}</Col>
               </Row>
               <Row>
-                <Col className='d-none d-md-block'>
+                <Col>
                   Link:{' '}
                   <a href={research.link} target='_blank' rel='noreferrer'>
                     {research?.link?.split('http://').pop()}
@@ -70,14 +68,10 @@ const ResearchScreen = ({ match }) => {
                 </Col>
               </Row>
               <Row>
-                <Col className='d-none d-md-block'>
-                  Posted By: {research.user?.name}
-                </Col>
+                <Col>Posted By: {research.user?.name}</Col>
               </Row>
               <Row>
-                <Col className='d-none d-md-block'>
-                  Date Posted: {research.createdAt?.substring(0, 10)}
-                </Col>
+                <Col>Date Posted: {research.createdAt?.substring(0, 10)}</Col>
               </Row>
             </Col>
           </Row>
