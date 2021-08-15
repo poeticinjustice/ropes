@@ -16,7 +16,6 @@ import Meta from '../components/Meta'
 import { listPersonDetails, listPersonResearch } from '../actions/personActions'
 import { createResearch } from '../actions/researchActions'
 import { RESEARCH_CREATE_RESET } from '../constants/researchConstants'
-import { LinkContainer } from 'react-router-bootstrap'
 
 const PersonScreen = ({ match }) => {
   const [title, setTitle] = useState('')
@@ -100,9 +99,12 @@ const PersonScreen = ({ match }) => {
                   Description: {person.description}
                 </ListGroup.Item>
                 <ListGroup>
-                  <LinkContainer to={`/person/${person._id}/edit`}>
-                    <Button variant='dark'>Edit</Button>
-                  </LinkContainer>
+                  <Link
+                    className='btn btn-dark my-3'
+                    to={`/person/${person._id}/edit`}
+                  >
+                    Edit
+                  </Link>
                 </ListGroup>
               </ListGroup>
             </Col>

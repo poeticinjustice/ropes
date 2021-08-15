@@ -28,11 +28,6 @@ const Header = () => {
             <Route render={({ history }) => <SearchBox history={history} />} />
             {userInfo ? (
               <Nav className='ml-auto'>
-                {/* <LinkContainer to='/mypage'>
-                  <Nav.Link to='/mypage'>
-                    <i className='fas fa-scroll'></i> My Page
-                  </Nav.Link>
-                </LinkContainer> */}
                 <NavDropdown title={userInfo.name} id='username'>
                   <>
                     <LinkContainer to='/profile'>
@@ -40,6 +35,12 @@ const Header = () => {
                     </LinkContainer>
                     <LinkContainer to='/personlist'>
                       <NavDropdown.Item>Persons</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to='/research'>
+                      <NavDropdown.Item>Research</NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to='/about'>
+                      <NavDropdown.Item>About</NavDropdown.Item>
                     </LinkContainer>
                   </>
                   {userInfo && userInfo.isAdmin && (
