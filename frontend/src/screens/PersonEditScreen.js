@@ -10,7 +10,7 @@ import { listPersonDetails, updatePerson } from '../actions/personActions'
 import { getPropubMemberDetails } from '../actions/propubActions'
 import { PERSON_UPDATE_RESET } from '../constants/personConstants'
 
-const PersonEditScreen = ({ match }) => {
+const PersonEditScreen = ({ match, history }) => {
   const personId = match.params.id
   const [propub_id, setPropub_id] = useState('')
   const [first_name, setFirstName] = useState('')

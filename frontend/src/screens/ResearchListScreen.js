@@ -60,11 +60,8 @@ const ResearchListScreen = () => {
             <Col md={2} xs={12} className='d-none d-md-block'>
               <p>Date Posted</p>
             </Col>
-            <Col md={1} xs={3}>
-              <p>View</p>
-            </Col>
-            <Col md={1} xs={3}>
-              <p>Delete</p>
+            <Col md={2} xs={3}>
+              <p>View/Edit/Delete</p>
             </Col>
           </Row>
           {research
@@ -92,7 +89,10 @@ const ResearchListScreen = () => {
                 </Col>
                 <Col md={2} xs={12} className='d-none d-md-block'>
                   <p>
-                    {research.person?.first_name} {research.person?.last_name}
+                    <Link to={`/person/${research?.person?._id}`}>
+                      {research?.person?.first_name}{' '}
+                      {research?.person?.last_name}
+                    </Link>
                   </p>
                 </Col>
                 <Col md={2} xs={9}>
@@ -105,12 +105,20 @@ const ResearchListScreen = () => {
                 <Col md={2} xs={12} className='d-none d-md-block'>
                   <p>{research.createdAt.substring(0, 10)}</p>
                 </Col>
-                <Col md={1} xs={3}>
-                  <Link to={`/research/${research._id}`}>
-                    <button>View</button>
-                  </Link>
-                </Col>
-                <Col md={1} xs={0}>
+                <Col md={2} xs={3}>
+                  <Link
+                    to={`/research/${research._id}`}
+                    className='btn-sm btn btn-info'
+                  >
+                    <i className='fas fa-book'></i>
+                  </Link>{' '}
+                  <Link
+                    to={`/research/${research._id}/edit`}
+                    variant='secondary'
+                    className='btn-sm'
+                  >
+                    <i className='fas fa-edit'></i>
+                  </Link>{' '}
                   <Button
                     variant='danger'
                     className='btn-sm'

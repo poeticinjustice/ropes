@@ -4,6 +4,7 @@ import Research from '../models/researchModel.js'
 
 // @desc    Fetch research
 // @route   GET /api/persons/:personId/research
+// @route   GET /api/users/:userId/research
 // @route   GET /api/research/
 // @access  Public
 
@@ -17,6 +18,15 @@ const getResearch = asyncHandler(async (req, res) => {
     })
 
     return res.json(personResearch)
+  } else if (req.params.userId) {
+    const userResearch = await Research.find({
+      user: req.params.userId,
+    }).populate({
+      path: 'person user',
+      select: 'name first_name last_name description',
+    })
+
+    return res.json(userResearch)
   } else {
     const research = await Research.find({}).populate({
       path: 'person user',
@@ -48,7 +58,7 @@ const getResearchById = asyncHandler(async (req, res) => {
 // @access    Private
 const createResearch = asyncHandler(async (req, res) => {
   req.body.person = req.params.personId
-  req.body.user = req.user.id
+  req.body.user = req.user._id
 
   const person = await Person.findById(req.params.personId)
 

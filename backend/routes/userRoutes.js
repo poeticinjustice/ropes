@@ -12,6 +12,12 @@ import {
 } from '../controllers/userController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
+// Include research router
+import researchRouter from './researchRoutes.js'
+
+// Re-route into research router
+router.use('/:userId/research', researchRouter)
+
 router.route('/').post(registerUser).get(protect, admin, getUsers)
 router.post('/login', authUser)
 router

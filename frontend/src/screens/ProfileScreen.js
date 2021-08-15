@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Container, Form, Button, Row, Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import {
+  getUserDetails,
+  updateUserProfile,
+  listUserResearch,
+} from '../actions/userActions'
+import { deleteResearch } from '../actions/researchActions'
+
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ match, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,7 +31,31 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
+  const userResearchList = useSelector((state) => state.userResearchList)
+  const { userResearch } = userResearchList
+
+  const noResearch = userResearch.length === 0
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match')
+    } else {
+      dispatch(updateUserProfile({ id: user._id, name, email, password }))
+    }
+  }
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteResearch(id))
+    }
+  }
+
   useEffect(() => {
+    if (user._id) {
+      dispatch(listUserResearch(user._id))
+    }
+
     if (!userInfo) {
       history.push('/login')
     } else {
@@ -36,16 +67,7 @@ const ProfileScreen = ({ location, history }) => {
         setEmail(user.email)
       }
     }
-  }, [dispatch, history, userInfo, user, success])
-
-  const submitHandler = (e) => {
-    e.preventDefault()
-    if (password !== confirmPassword) {
-      setMessage('Passwords do not match')
-    } else {
-      dispatch(updateUserProfile({ id: user._id, name, email, password }))
-    }
-  }
+  }, [dispatch, match, history, userInfo, user, success])
 
   return (
     <Row>
@@ -108,6 +130,61 @@ const ProfileScreen = ({ location, history }) => {
       </Col>
       <Col md={9}>
         <h2>My Research</h2>
+        {noResearch ? (
+          <Message>No Research Posted</Message>
+        ) : (
+          <Container>
+            <Row>
+              <Col md={5} xs={12}>
+                <p>Title</p>
+              </Col>
+              <Col md={3} xs={12} className='d-none d-md-block'>
+                <p>Date Posted</p>
+              </Col>
+
+              <Col md={4} xs={12}>
+                <p>View/Edit/delete</p>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                {userResearch.map((research) => (
+                  <Row key={research._id}>
+                    <Col md={5} xs={12}>
+                      <p>{research.title}</p>
+                    </Col>
+                    <Col md={3} xs={12} className='d-none d-md-block'>
+                      <p>{research.createdAt.substring(0, 10)}</p>
+                    </Col>
+                    <Col md={4} xs={12}>
+                      <Link
+                        to={`/research/${research._id}`}
+                        className='btn-sm btn btn-info'
+                      >
+                        <i className='fas fa-book'></i>
+                      </Link>{' '}
+                      <Link
+                        to={`/research/${research._id}/edit`}
+                        variant='secondary'
+                        className='btn-sm'
+                      >
+                        <i className='fas fa-edit'></i>
+                      </Link>{' '}
+                      <Button
+                        variant='danger'
+                        className='btn-sm'
+                        onClick={() => deleteHandler(research._id)}
+                      >
+                        <i className='fas fa-trash'></i>
+                      </Button>
+                    </Col>
+                  </Row>
+                ))}
+              </Col>
+            </Row>
+          </Container>
+        )}
       </Col>
     </Row>
   )

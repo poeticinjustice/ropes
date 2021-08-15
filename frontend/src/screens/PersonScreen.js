@@ -17,7 +17,7 @@ import { listPersonDetails, listPersonResearch } from '../actions/personActions'
 import { createResearch } from '../actions/researchActions'
 import { RESEARCH_CREATE_RESET } from '../constants/researchConstants'
 
-const PersonScreen = ({ match }) => {
+const PersonScreen = ({ match, history }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
@@ -46,13 +46,21 @@ const PersonScreen = ({ match }) => {
       setTitle('')
       setDescription('')
       dispatch({ type: RESEARCH_CREATE_RESET })
+      history.push('/research')
     }
     if (!person._id || person._id !== match.params.id) {
       dispatch(listPersonDetails(match.params.id))
       dispatch({ type: RESEARCH_CREATE_RESET })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, listPersonResearch, match, person._id, successResearch])
+  }, [
+    dispatch,
+    listPersonResearch,
+    match,
+    history,
+    person._id,
+    successResearch,
+  ])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -114,18 +122,18 @@ const PersonScreen = ({ match }) => {
               ) : (
                 <Container>
                   <Row>
-                    <Col md={4} xs={9}>
+                    <Col md={4} xs={8}>
                       <p>Title</p>
                     </Col>
-                    <Col md={5} xs={12} className='d-none d-md-block'>
+                    <Col md={4} xs={12} className='d-none d-md-block'>
                       <p>Description</p>
                     </Col>
                     <Col md={2} xs={12} className='d-none d-md-block'>
                       <p>Date Posted</p>
                     </Col>
 
-                    <Col md={1} xs={3}>
-                      <p>View</p>
+                    <Col md={2} xs={4}>
+                      <p>View/Edit</p>
                     </Col>
                   </Row>
 
@@ -136,19 +144,29 @@ const PersonScreen = ({ match }) => {
                         .reverse()
                         .map((research) => (
                           <Row key={research._id}>
-                            <Col md={4} xs={9}>
+                            <Col md={4} xs={8}>
                               <p>{research.title}</p>
                             </Col>
-                            <Col md={5} xs={12} className='d-none d-md-block'>
+                            <Col md={4} xs={12} className='d-none d-md-block'>
                               <p>{research.description}</p>
                             </Col>
                             <Col md={2} xs={12} className='d-none d-md-block'>
                               <p>{research.createdAt.substring(0, 10)}</p>
                             </Col>
-                            <Col md={1} xs={3}>
-                              <Link to={`/research/${research._id}`}>
-                                <button>View</button>
-                              </Link>
+                            <Col md={2} xs={4}>
+                              <Link
+                                to={`/research/${research._id}`}
+                                className='btn-sm btn btn-info'
+                              >
+                                <i className='fas fa-book'></i>
+                              </Link>{' '}
+                              <Link
+                                to={`/research/${research._id}/edit`}
+                                variant='secondary'
+                                className='btn-sm'
+                              >
+                                <i className='fas fa-edit'></i>
+                              </Link>{' '}
                             </Col>
                           </Row>
                         ))}
@@ -179,8 +197,7 @@ const PersonScreen = ({ match }) => {
                       <Form.Group controlId='title'>
                         <Form.Label>Title</Form.Label>
                         <Form.Control
-                          as='input'
-                          row='1'
+                          type='text'
                           value={title}
                           onChange={(e) => setTitle(e.target.value)}
                         ></Form.Control>
@@ -188,8 +205,7 @@ const PersonScreen = ({ match }) => {
                       <Form.Group controlId='description'>
                         <Form.Label>Description</Form.Label>
                         <Form.Control
-                          as='textarea'
-                          row='3'
+                          type='text'
                           value={description}
                           onChange={(e) => setDescription(e.target.value)}
                         ></Form.Control>

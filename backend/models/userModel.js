@@ -21,6 +21,12 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    research: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Research',
+      },
+    ],
   },
   {
     timestamps: true,

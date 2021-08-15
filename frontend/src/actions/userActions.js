@@ -24,6 +24,9 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
+  USER_RESEARCH_LIST_REQUEST,
+  USER_RESEARCH_LIST_SUCCESS,
+  USER_RESEARCH_LIST_FAIL,
 } from '../constants/userConstants'
 
 export const login = (email, password) => async (dispatch) => {
@@ -294,6 +297,27 @@ export const updateUser = (user) => async (dispatch, getState) => {
     dispatch({
       type: USER_UPDATE_FAIL,
       payload: message,
+    })
+  }
+}
+
+export const listUserResearch = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: USER_RESEARCH_LIST_REQUEST })
+
+    const { data } = await axios.get(`/api/users/${id}/research`)
+
+    dispatch({
+      type: USER_RESEARCH_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_RESEARCH_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     })
   }
 }

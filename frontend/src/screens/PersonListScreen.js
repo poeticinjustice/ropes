@@ -99,7 +99,7 @@ const PersonListScreen = ({ history, match }) => {
                 <th>NAME</th>
                 <th>STATE</th>
                 <th>PARTY</th>
-                <th>TITLE</th>
+                <th>Title</th>
                 <th>DESCRIPTION</th>
                 <th></th>
               </tr>

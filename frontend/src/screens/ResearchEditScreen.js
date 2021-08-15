@@ -9,7 +9,7 @@ import FormContainer from '../components/FormContainer'
 import { listResearchDetails, updateResearch } from '../actions/researchActions'
 import { RESEARCH_UPDATE_RESET } from '../constants/researchConstants'
 
-const ResearchEditScreen = ({ match }) => {
+const ResearchEditScreen = ({ match, history }) => {
   const researchId = match.params.id
 
   const [title, setTitle] = useState('')
@@ -33,6 +33,7 @@ const ResearchEditScreen = ({ match }) => {
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: RESEARCH_UPDATE_RESET })
+      history.push(`/research/${research._id}`)
     } else {
       if (!research.title || research._id !== researchId) {
         dispatch(listResearchDetails(researchId))
@@ -43,7 +44,7 @@ const ResearchEditScreen = ({ match }) => {
         setLink(research.link)
       }
     }
-  }, [dispatch, researchId, research, successUpdate])
+  }, [dispatch, history, researchId, research, successUpdate])
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0]
@@ -109,7 +110,8 @@ const ResearchEditScreen = ({ match }) => {
             <Form.Group controlId='description'>
               <Form.Label>Description</Form.Label>
               <Form.Control
-                type='text'
+                type='textarea'
+                row='8'
                 placeholder='Enter description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
