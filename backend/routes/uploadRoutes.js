@@ -1,41 +1,47 @@
-import path from 'path'
 import express from 'express'
 import multer from 'multer'
 const router = express.Router()
+// import { protect, admin } from '../middleware/authMiddleware.js'
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    )
-  },
+import multerS3 from 'multer-s3'
+import aws from 'aws-sdk'
+
+//multer s3
+const s3 = new aws.S3()
+aws.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  accessSecretKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: 'us-east-1',
 })
 
-function checkFileType(file, cb) {
-  const filetypes = /jpg|jpeg|png/
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
-  const mimetype = filetypes.test(file.mimetype)
-
-  if (extname && mimetype) {
-    return cb(null, true)
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true)
   } else {
-    cb('Images only!')
+    cb(new Error('Invalid file type, only JPEG and PNG is allowed!'), false)
   }
 }
 
 const upload = multer({
-  storage,
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb)
-  },
+  fileFilter,
+  storage: multerS3({
+    acl: 'public-read',
+    s3: s3,
+    bucket: `ropes-app`,
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: 'TESTING_METADATA' })
+    },
+    key: function (req, file, cb) {
+      cb(null, Date.now().toString())
+    },
+  }),
 })
 
-router.post('/', upload.single('image'), (req, res) => {
-  res.send(`/${req.file.path}`)
-})
+const returnImageUrl = (req, res) => {
+  return res.send(`${req.file.location}`)
+}
+
+// router.route('/').post(protect, admin, upload.single('image'), returnImageUrl)
+router.route('/').post(upload.single('image'), returnImageUrl)
 
 export default router
