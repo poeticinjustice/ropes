@@ -92,7 +92,7 @@ const ResearchScreen = ({ match }) => {
             className='btn btn-light my-3'
             to={`/research/${research._id}/edit`}
           >
-            Edit
+            Edit Research
           </Link>
         </>
       )}

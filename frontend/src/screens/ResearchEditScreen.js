@@ -89,6 +89,9 @@ const ResearchEditScreen = ({ match, history }) => {
       </Link>
       <FormContainer>
         <h1>Edit Research</h1>
+        <p>
+          {research?.person?.first_name} {research?.person?.last_name}
+        </p>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
